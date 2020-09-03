@@ -7,8 +7,11 @@ from tkinter.messagebox import *
 from tkinter.filedialog import askopenfilename, asksaveasfilename
 
 import pickle
+from collections import OrderedDict
 import os
-from manage import manage_json_file as mjf 
+from manage import manage_json_file as mjf
+import json
+
 
 class Root(object):
     """docstring for Root"""
@@ -20,65 +23,66 @@ class Root(object):
     def __init__(self):
         self.filename = ""
         self.listeframe = []
-       
-        self.root.protocol("WM_DELETE_WINDOW", self.ConfirmerQuitter)
-        self.root.bind("<Escape>", self.ConfirmerQuitter)
 
-    def ConfirmerQuitter(self):
+        self.root.protocol("WM_DELETE_WINDOW", self._confirmerquitter)
+        self.root.bind("<Escape>", self._confirmerquitter)
+
+    def _confirmerquitter(self):
         if askyesno("Quitter", "Voulez-vous vraiment quitter ?"):
             self.root.destroy()
 
-    def escape_command(self, event):
+    def _escape_command(self, event):
         self.ConfirmerQuitter()
 
     def creation_fenetre(self):
 
-        self.creation_frame()
-        self.barre_menu()
+        self._creation_frame()
+        self._barre_menu()
         self.root.mainloop()
 
-    def creation_frame(self):
-        self.frame_ressource = Frame(self.root, width=200,relief="groove")
+    def _creation_frame(self):
+        self.frame_ressource = Frame(self.root, width=200, relief="groove")
         self.frame_ressource.grid(column=1, row=1)
 
         self.frame_btt = Frame(self.root)
         self.frame_btt.grid(column=1, row=2)
 
-        self.bttadd = Button(self.frame_btt, text="Add", command=self.command_add)
+        self.bttadd = Button(self.frame_btt, text="Add", command=self._command_add)
         self.bttadd.pack(side=LEFT)
 
     # On crée la barre de menu
-    def barre_menu(self):
+    def _barre_menu(self):
         self.mb = Menubutton(self.root, text="Menu")
-        self.mb.grid(column=0,row=0)
-        
+        self.mb.grid(column=0, row=0)
+
         self.mb.menu = Menu(self.mb, tearoff=0)
-        self.mb['menu']=self.mb.menu
-        self.mb.menu.add_command(label="New game", command=self.command_new)
-        self.mb.menu.add_command(label="Load game", command=self.command_open)
-        self.mb.menu.add_command(label="Save game", command=self.command_save)
-        self.mb.menu.add_command(label="Save game as", command=self.command_save_as)
-        self.mb.menu.add_command(label="Exit", command=self.ConfirmerQuitter)
+        self.mb["menu"] = self.mb.menu
+        self.mb.menu.add_command(label="New game", command=self._command_new)
+        self.mb.menu.add_command(label="Load game", command=self._command_open)
+        self.mb.menu.add_command(label="Save game", command=self._command_save)
+        self.mb.menu.add_command(label="Save game as", command=self._command_save_as)
+        self.mb.menu.add_command(label="Exit", command=self._confirmerquitter)
         # self.menubar.add_cascade(label="Files", menu=self.filemenu)
 
         # self.root.config(menu=self.menubar)
 
     # Fonctions lié au menu
-    def command_new(self):  # Fonction lié au bouton new
+    def _command_new(self):  # Fonction lié au bouton new
         self.filename = ""
         self.frame_ressource.destroy()
         self.frame_ressource = Frame(self.root)
         self.frame_ressource.grid(column=1, row=1)
-        
 
-    def command_open(self):  # Fonction ouvrant le fichier choisis et l'assigne à save
+    def _command_open(
+        self
+    ):  # Fonction ouvrant le fichier choisis et l'assigne à save
 
         filename = askopenfilename()
         try:
             if filename == "":
                 pass
             else:
-                self.filename=filename
+                self.filename = filename
                 if Root.save != []:
                     self.frame_ressource.destroy()
                     self.frame_ressource = Frame(self.root, width=1)
@@ -93,14 +97,15 @@ class Root(object):
         except TypeError:
             pass
 
-    def command_save(self):  # Fonction sauvegardant toutes les valeurs de save
-
+    def _command_save(self):  # Fonction sauvegardant toutes les valeurs de save
+        
         if self.filename == "":
             pass
         else:
 
-            for element in self.listeframe:
-                self.save.append(element.liste_val)
+            # for element in self.listeframe:
+            #     self.save.append(element.liste_val)
+            
 
             with open(self.filename, "wb") as file:
                 my_save = pickle.Pickler(file)
@@ -108,15 +113,15 @@ class Root(object):
 
             showinfo("File saved", "Your file is save")
 
-    def command_save_as(self):  # fonction lié au bouton save as
+    def _command_save_as(self):  # fonction lié au bouton save as
         filename = asksaveasfilename()
         if filename == "":
             pass
         else:
-            self.filename=filename
+            self.filename = filename
             self.command_save()
 
-    def command_add(self):
+    def _command_add(self):
         self.liste = DefVal()
         self.liste.creation_fenetre()
 
@@ -136,26 +141,24 @@ class MyFrame:
         self.root = root
         self.liste_val = liste_val
         self.i = Root.save.index(liste_val)
-        self.text=StringVar()
+        self.text = StringVar()
         self.nom = self.liste_val[0]
         self.vmin = self.liste_val[1]
         self.vmax = self.liste_val[2]
         self.vdefaut = self.liste_val[3]
         self.vact = self.liste_val[4]
         self.myframe = Frame(self.root)
-        
 
     def creation_my_frame(self):  # Creation de la fenêtre
 
-        self.creation_lbl_entry()
-        self.creation_button(),
+        self._creation_lbl_entry()
+        self._creation_button(),
         self.myframe.pack(pady=5)
-       
 
-    def creation_lbl_entry(
+    def _creation_lbl_entry(
         self,
     ):  # Creation du label du nom est du label de la valeur affiché
-        
+
         self.text.set(str(self.vact))
         self.lbl1 = Label(self.myframe, text=(self.nom, ":"), width=6)
         self.lbl1.grid(row=0, column=1)
@@ -164,42 +167,43 @@ class MyFrame:
         self.lbl2.grid(row=0, column=2)
 
         self.entri = Entry(self.myframe, width=10)
-        self.entri.bind("<Return>", self.valid_ok)
+        self.entri.bind("<Return>", self._valid_ok)
         self.entri.grid(row=0, column=3)
 
-    def creation_button(
+    def _creation_button(
         self,
     ):  # Creation des boutons de modification, de suppression et de reset
         self.photo_reset = PhotoImage(file="image/fleche_reset.gif")
         self.bps_reset = Button(
-            self.myframe, image=self.photo_reset, command=self.button_reset
+            self.myframe, image=self.photo_reset, command=self._button_reset
         )
         self.bps_reset.grid(row=0, column=4)
 
         self.photo_modifie = PhotoImage(file="image/mini_crayon.gif")
         self.bps_modifie = Button(
-            self.myframe, image=self.photo_modifie, command=self.button_modifie
+            self.myframe, image=self.photo_modifie, command=self._button_modifie
         )
         self.bps_modifie.grid(row=0, column=5)
 
         self.photo_delete = PhotoImage(file="image/mini_corbeille.gif")
         self.bps_delete = Button(
-            self.myframe, image=self.photo_delete, command=self.button_delete
+            self.myframe, image=self.photo_delete, command=self._button_delete
         )
         self.bps_delete.grid(row=0, column=6)
 
     # Fonction du bouton ok qui modifie les valeurs et nettoie l'Entry
-    def valid_ok(self, event):
+    def _valid_ok(self, event):
         try:
-            self.get_valeur = int(self.entri.get())
+            get_valeur = int(self.entri.get())
         except ValueError:
             showerror(
-                "Error message", "Veuillez entrer un entier positif ou negatif ou nul"
+                "Error message",
+                "Veuillez entrer un entier positif ou negatif ou nul",
             )
-            self.get_valeur = 0
+            get_valeur = 0
             self.entri.delete(0, END)
         else:
-            self.vact += self.get_valeur
+            self.vact += get_valeur
 
             if self.vact < self.vmin:
                 self.vact = self.vmin
@@ -209,13 +213,13 @@ class MyFrame:
             Root.save[self.i][4] = self.vact
             self.entri.delete(0, END)
 
-    def button_reset(self):  # commande du bouton reset
+    def _button_reset(self):  # commande du bouton reset
         self.vact = self.vdefaut
         # self.lbl2["text"] = (self.vact, "/", self.vmax)
         self.text.set(str(self.vact))
         self.entri.delete(0, END)
 
-    def button_modifie(self):  # commande du bouton modifie
+    def _button_modifie(self):  # commande du bouton modifie
         # self.listevar=[self.nom,self.vmin,self.vmax,self.vdefaut,self.vact]
         self.fen = DefVal()
         self.fen.valeurs = self.liste_val
@@ -231,7 +235,8 @@ class MyFrame:
         self.lbl1["text"] = self.nom
         # self.lbl2["text"] = (self.vact, "/", self.vmax)
         self.text.set(str(self.vact))
-    def button_delete(self):  # commande du delete
+
+    def _button_delete(self):  # commande du delete
 
         self.myframe.destroy()
         Root.save.remove(self.liste_val)
@@ -246,7 +251,6 @@ class DefVal(Root):
         self.win = Toplevel(self.root)
         self.win.geometry("+320+0")
 
-
     @property
     def valeurs(self):
         return self._valeurs
@@ -255,15 +259,20 @@ class DefVal(Root):
     def valeurs(self, v):
         self._valeurs = v
 
-    def creation_fenetre(self):
+    def creation_fenetre(self):  # We create the window of DefVal
 
-        self.creation_ligne()
-        self.creation_button()
+        self._creation_ligne()
+        self._creation_button()
         self.win.mainloop()
 
-    def creation_ligne(self):
+    def _creation_ligne(self):  # We create lines of the window of Def val
 
-        self.liste_nom = ["Nom:", "Valeur min:", "Valeur max:", "Valeur par defaut:"]
+        self.liste_nom = [
+            "Nom:",
+            "Valeur min:",
+            "Valeur max:",
+            "Valeur par defaut:",
+        ]  # We make a liste with name of label
         for i in range(4):
             self.frame = Frame(self.win, width=35)
             self.frame.pack()
@@ -274,10 +283,12 @@ class DefVal(Root):
             self.entry.pack(side=RIGHT)
             self.liste_entry.append(self.entry)
 
-    def creation_button(self):
+    def _creation_button(self):
         self.frame_button = Frame(self.win, width=15)
         self.frame_button.pack(side=BOTTOM)
-        self.button_ok = Button(self.frame_button, text="OK", command=self._commande_ok)
+        self.button_ok = Button(
+            self.frame_button, text="OK", command=self._commande_ok
+        )
         self.button_ok.pack(side=LEFT)
         self.button_cancel = Button(
             self.frame_button, text="Cancel", command=self._command_cancel
@@ -292,24 +303,19 @@ class DefVal(Root):
         self.valeurs[3] = self.liste_entry[3].get()  # valeur par defaut
         self._test_encadrement(self.valeurs)
 
-
-        
-
     def _command_cancel(self):
-        
+
         self.win.quit()
         self.win.destroy()
-        
-        
-    def _test_encadrement(self,liste):
+
+    def _test_encadrement(self, liste):
 
         test = self._test_int(self.valeurs[1:4])
 
-        
         if test:
             for index in range(len(self.valeurs)):
                 if index != 0:
-                    self.valeurs[index]=int(self.valeurs[index])
+                    self.valeurs[index] = int(self.valeurs[index])
             if liste[0] == "":
                 self.win.destroy()
                 self.win.quit()
@@ -321,11 +327,12 @@ class DefVal(Root):
                     "La valeur par défaut doit être comprise entre le minium et le maximum",
                 )
             else:
-                self.valeurs[4]=self.valeurs[3]
+                self.valeurs[4] = self.valeurs[3]
                 self.win.quit()
                 self.win.destroy()
         else:
             pass
+
     def _test_int(self, liste):
         try:
 
@@ -337,10 +344,54 @@ class DefVal(Root):
         except ValueError:
             showerror("Message d'erreur", "Veuillez entrer un entier")
             return False
-                
 
-        
 
+class Data(object):
+    """docstring for Save"""
+    def __init__(self):
+        self._val = []
+        self._json=OrderedDict()
+
+
+     @property
+     def val(self):
+         return self._save
+
+    @val.setter(self, v):
+        self._val =  v
+
+    def _json_to_list(self, json_file, liste):
+        pass  
+
+    def _list_to_json(self, liste, json_file):
+        pass
+
+    def load_data(self):
+        pass
+
+    def save_data(self):
+        pass
+
+    def add_data(self):
+        pass
+
+    def del_data(self):
+        pass
+
+
+class Data_Frame(object):
+     """docstring for Data_Frame"""
+     def __init__(self):
+        self._name=""
+        self._min=0
+        self._max=0
+        self._default=0
+        self._val=0
+
+
+         
+
+          
 
 def main():
     gestionnaire_ressource = Root()
