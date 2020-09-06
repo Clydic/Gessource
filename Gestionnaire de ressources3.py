@@ -122,31 +122,32 @@ class Root(object):
             self.command_save()
 
     def _command_add(self):
-        self.liste = DefVal()
-        self.liste.creation_fenetre()
+        liste = DefVal()
+        liste.creation_fenetre()
 
-        if self.liste.valeurs[0] == "":
+        if liste.valeurs[0] == "":
             pass
         else:
-            Root.save.append(self.liste.valeurs)
-            self.frame = MyFrame(self.frame_ressource, self.liste.valeurs)
-            self.frame.creation_my_frame()
+            Root.save.append(liste.valeurs)
+            frame = MyFrame(self.frame_ressource, liste.valeurs)
+            Root.save.append(frame)
+            frame.creation_my_frame()
 
 
 # Cration de l'objet frame dans lequel se trouve un label avec une valeur, une zone d'entrée et un bouton
 
 
 class MyFrame:
-    def __init__(self, root, liste_val):  # Initialisation de My Frame
+    def __init__(self, root, liste):  # Initialisation de My Frame
         self.root = root
-        self.liste_val = liste_val
-        self.i = Root.save.index(liste_val)
+        # self.liste_val = liste_val
+        self.i = Root.save.index(liste)
         self.text = StringVar()
-        self.nom = self.liste_val[0]
-        self.vmin = self.liste_val[1]
-        self.vmax = self.liste_val[2]
-        self.vdefaut = self.liste_val[3]
-        self.vact = self.liste_val[4]
+        self.nom = liste[0]
+        self.vmin = liste[1]
+        self.vmax = liste[2]
+        self.vdefaut = liste[3]
+        self.vact = liste[4]
         self.myframe = Frame(self.root)
 
     def creation_my_frame(self):  # Creation de la fenêtre
@@ -349,13 +350,13 @@ class DefVal(Root):
 class Data(object):
     """docstring for Save"""
     def __init__(self):
-        self._val = []
-        self._json=OrderedDict()
+        self._val=[]
+        
 
 
-     @property
-     def val(self):
-         return self._save
+    @property
+    def val(self):
+        return self._val
 
     @val.setter(self, v):
         self._val =  v
@@ -372,24 +373,61 @@ class Data(object):
     def save_data(self):
         pass
 
-    def add_data(self):
-        pass
+    def add_data(self, liste):
+        self._val.append(liste)
 
     def del_data(self):
         pass
 
 
 class Data_Frame(object):
-     """docstring for Data_Frame"""
-     def __init__(self):
-        self._name=""
-        self._min=0
-        self._max=0
-        self._default=0
-        self._val=0
+    """docstring for Data_Frame"""
+
+    def __init__(self, liste):
+        self._name=liste[0]
+        self._vmin=liste[1]
+        self._vmax=liste[2]
+        self._vdefault=liste[3]
+        self._vact=liste[4]
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self,name):
+        self._name = name
 
 
-         
+    @property
+    def vmin(self):
+        return self._vmin
+
+
+    @vmin.setter
+    def vmin(self,vmin):
+        self._vmin = vmin
+
+
+    @property
+    def vmax(self):
+        return self._vmax
+
+
+    @vmax.setter
+    def vmax(self,vmax):
+        self._vmax = vmax
+
+
+    @property
+    def vdefaut(self):
+        return self.vdefaut
+
+
+    @vdefaut.setter
+    def vdefaut(self,vdefaut):
+        self._name = vdefaut
+
 
           
 
