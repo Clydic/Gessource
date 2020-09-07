@@ -5,20 +5,73 @@ from tkinter import *
 from tkinter.ttk import *
 from tkinter.messagebox import *
 from tkinter.filedialog import askopenfilename, asksaveasfilename
-
+# import pdb; pdb.set_trace()
 import pickle
 from collections import OrderedDict
 import os
 from manage import manage_json_file as mjf
 import json
 
+class DataManage:
+    """docstring for Save"""
+    def __init__(self):
+        self._val=OrderedDict()
+       
+
+
+    @property
+    def val(self,):
+        return self._val
+
+    @val.setter
+    def val(self, key, value, v):
+        self._val =  v
+
+    def _json_to_list(self, json_file):
+        liste=[]
+        
+        for key,values in json_file.items():
+            liste.append([key,values["vmin"],values["vmax"],values["vdefaut"],values["vact"]])
+        return liste
+
+    def _list_to_json(self, liste_de_liste):
+        
+        json_file={}
+        for element in liste_de_liste:
+            json_file[element[0]]={"vmin":element[1], "vmax": element[2], "vdefaut":element[3], "vact":element[4]}
+        return json_file
+
+    def load_data(self,filename):
+        pass
+
+    def save_data(self,filename):
+        pass
+
+    def add_data(self, liste):
+        key=liste[0]
+        liste_values=liste [1:]
+        self.val[key]={}
+        liste_nom=[
+        "vmin",
+        "vmax",
+        "vdefaut",
+        "vact"]
+        for index in range(len(liste_nom)):
+                 self.val[key][liste_nom[index]]=liste_values[index]
+
+    def update_data(self,liste):
+        pass
+
+
+    def del_data(self, liste):
+        del self._val[liste[0]]
 
 class Root(object):
     """docstring for Root"""
 
     root = Tk()
     root.geometry("+150+0")
-    save = []
+    save = DataManage()
 
     def __init__(self):
         self.filename = ""
@@ -70,7 +123,7 @@ class Root(object):
     def _command_new(self):  # Fonction lié au bouton new
         self.filename = ""
         self.frame_ressource.destroy()
-        self.frame_ressource = Frame(self.root)
+        self.frame_ressource = Frame(self.root, width=200, relief="groove")
         self.frame_ressource.grid(column=1, row=1)
 
     def _command_open(
@@ -128,9 +181,9 @@ class Root(object):
         if liste.valeurs[0] == "":
             pass
         else:
-            Root.save.append(liste.valeurs)
+            Root.save.add_data(liste.valeurs)
             frame = MyFrame(self.frame_ressource, liste.valeurs)
-            Root.save.append(frame)
+            Root.listeframe.append(frame)
             frame.creation_my_frame()
 
 
@@ -140,14 +193,13 @@ class Root(object):
 class MyFrame:
     def __init__(self, root, liste):  # Initialisation de My Frame
         self.root = root
-        # self.liste_val = liste_val
+        self.liste_val = liste
         self.i = Root.save.index(liste)
-        self.text = StringVar()
-        self.nom = liste[0]
-        self.vmin = liste[1]
-        self.vmax = liste[2]
-        self.vdefaut = liste[3]
-        self.vact = liste[4]
+        self.nom = self.liste_val[0]
+        self.vmin = self.liste_val[1]
+        self.vmax = self.liste_val[2]
+        self.vdefaut = self.liste_val[3]
+        self.vact = self.liste_val[4]
         self.myframe = Frame(self.root)
 
     def creation_my_frame(self):  # Creation de la fenêtre
@@ -159,7 +211,7 @@ class MyFrame:
     def _creation_lbl_entry(
         self,
     ):  # Creation du label du nom est du label de la valeur affiché
-
+        self.text = StringVar()
         self.text.set(str(self.vact))
         self.lbl1 = Label(self.myframe, text=(self.nom, ":"), width=6)
         self.lbl1.grid(row=0, column=1)
@@ -195,7 +247,9 @@ class MyFrame:
     # Fonction du bouton ok qui modifie les valeurs et nettoie l'Entry
     def _valid_ok(self, event):
         try:
-            get_valeur = int(self.entri.get())
+
+            self.get_valeur = int(self.entri.get())
+            # 
         except ValueError:
             showerror(
                 "Error message",
@@ -204,13 +258,14 @@ class MyFrame:
             get_valeur = 0
             self.entri.delete(0, END)
         else:
-            self.vact += get_valeur
+            self.vact += self.get_valeur
 
             if self.vact < self.vmin:
                 self.vact = self.vmin
             elif self.vact > self.vmax:
                 self.vact = self.vmax
             self.text.set(str(self.vact))
+            
             Root.save[self.i][4] = self.vact
             self.entri.delete(0, END)
 
@@ -347,37 +402,9 @@ class DefVal(Root):
             return False
 
 
-class Data(object):
-    """docstring for Save"""
-    def __init__(self):
-        self._val=[]
-        
 
 
-    @property
-    def val(self):
-        return self._val
-
-    @val.setter(self, v):
-        self._val =  v
-
-    def _json_to_list(self, json_file, liste):
-        pass  
-
-    def _list_to_json(self, liste, json_file):
-        pass
-
-    def load_data(self):
-        pass
-
-    def save_data(self):
-        pass
-
-    def add_data(self, liste):
-        self._val.append(liste)
-
-    def del_data(self):
-        pass
+    
 
 
 class Data_Frame(object):
@@ -432,8 +459,15 @@ class Data_Frame(object):
           
 
 def main():
-    gestionnaire_ressource = Root()
-    gestionnaire_ressource.creation_fenetre()
+    # gestionnaire_ressource = Root()
+    # gestionnaire_ressource.creation_fenetre()
+    test=DataManage()
+    import pdb; pdb.set_trace()
+    test._json_to_list({'Pv': {'vmin': -10, 'vmax': 20, 'vdefaut': 20, 'vact': 0}, 'Mana': {'vmin': 0, 'vmax': 20, 'vdefaut': 20, 'vact': 0}})
+    
+    liste=[['Pv', -10, 20, 20, 0], ['Mana', 0, 20, 20, 0]]
+
+
 
 
 if __name__ == "__main__":
