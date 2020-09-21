@@ -16,7 +16,7 @@ class DataManage:
     """docstring for Save"""
     def __init__(self):
         self._val=OrderedDict()
-       
+        
 
 
     @property
@@ -60,7 +60,17 @@ class DataManage:
                  self.val[key][liste_nom[index]]=liste_values[index]
 
     def update_data(self,liste):
-        pass
+        
+        key=liste[0]
+        values=liste[1:]
+        liste_keys=list(self.val[key].keys())
+        if key in self.val:
+            
+            for index in range(len(values)):
+                self.val[key][liste_keys[index]] = values[index]
+        else:
+             self.add_data(liste)
+
 
 
     def del_data(self, liste):
@@ -266,7 +276,7 @@ class MyFrame:
                 self.vact = self.vmax
             self.text.set(str(self.vact))
             
-            Root.save[self.i][4] = self.vact
+            Root.val[self.i][4] = self.vact
             self.entri.delete(0, END)
 
     def _button_reset(self):  # commande du bouton reset
@@ -462,10 +472,15 @@ def main():
     # gestionnaire_ressource = Root()
     # gestionnaire_ressource.creation_fenetre()
     test=DataManage()
-    import pdb; pdb.set_trace()
-    test._json_to_list({'Pv': {'vmin': -10, 'vmax': 20, 'vdefaut': 20, 'vact': 0}, 'Mana': {'vmin': 0, 'vmax': 20, 'vdefaut': 20, 'vact': 0}})
+    (liste,liste1)=(['Pv', -10, 20, 20, 0],['Mana', 0, 20, 20, 0])
     
-    liste=[['Pv', -10, 20, 20, 0], ['Mana', 0, 20, 20, 0]]
+    test.add_data(liste)
+    import pdb; pdb.set_trace()
+    test.add_data(liste1)
+    
+    # test._json_to_list({'Pv': {'vmin': -10, 'vmax': 20, 'vdefaut': 20, 'vact': 0}, 'Mana': {'vmin': 0, 'vmax': 20, 'vdefaut': 20, 'vact': 0}})
+    
+    
 
 
 
@@ -473,4 +488,4 @@ def main():
 if __name__ == "__main__":
     main()
 
-    # os.system("pause")
+    os.system("pause")
