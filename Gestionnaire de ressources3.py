@@ -15,17 +15,17 @@ import json
 class DataManage:
     """docstring for Save"""
     def __init__(self):
-        self._val=OrderedDict()
+        self._data=OrderedDict()
         
 
 
     @property
-    def val(self,):
-        return self._val
+    def data(self):
+        return self._data
 
-    @val.setter
-    def val(self, key, value, v):
-        self._val =  v
+    @data.setter
+    def data(self, key, value, v):
+        self._data =  v
 
     def _json_to_list(self, json_file):
         liste=[]
@@ -42,39 +42,32 @@ class DataManage:
         return json_file
 
     def load_data(self,filename):
-        pass
+        self._data=OrderedDict(mjf.load(filename))
 
     def save_data(self,filename):
-        pass
+        mjf.save(filename , self.data)
 
-    def add_data(self, liste):
-        key=liste[0]
-        liste_values=liste [1:]
-        self.val[key]={}
-        liste_nom=[
-        "vmin",
-        "vmax",
-        "vdefaut",
-        "vact"]
+    def add_data(self, key, liste):
+        liste_nom=["vmin","vmax","vdefaut","vact"]
+        dictionnary={}
         for index in range(len(liste_nom)):
-                 self.val[key][liste_nom[index]]=liste_values[index]
+            dictionnary[liste_nom[index]] = liste[index]
+        self._data[key]=dictionnary
 
-    def update_data(self,liste):
-        
-        key=liste[0]
-        values=liste[1:]
-        liste_keys=list(self.val[key].keys())
-        if key in self.val:
-            
-            for index in range(len(values)):
-                self.val[key][liste_keys[index]] = values[index]
-        else:
-             self.add_data(liste)
+    # def update_data(self,key,dictionnary):
+    #     liste_keys=list(self.data[key].keys())
+    #     if key in self.data:
+    #         for index in range(len(values)):
+    #             self.data[key][liste_keys[index]] = values[index]
+    #     else:
+    #          self.add_data(liste)
+
+    def update_data(self, mainkey, secondkey, value):
+        self._data[mainkey][secondkey] = value
 
 
-
-    def del_data(self, liste):
-        del self._val[liste[0]]
+    def del_data(self, key):
+        del self.data[key]
 
 class Root(object):
     """docstring for Root"""
@@ -131,188 +124,221 @@ class Root(object):
 
     # Fonctions lié au menu
     def _command_new(self):  # Fonction lié au bouton new
+        self._new()
+
+    
+    def _command_open(
+        self
+    ):  # Fonction ouvrant le fichier choisis et l'assigne à save
+        self._open()
+        
+
+    def _command_save(self):  # Fonction sauvegardant toutes les valeurs de save
+        self._save()
+        
+
+    def _command_save_as(self):  # fonction lié au bouton save as
+        self._save_as()
+
+    def _command_add(self):
+       self._add()
+
+    def _new(self):
         self.filename = ""
+        self.save.data.__init__()
         self.frame_ressource.destroy()
         self.frame_ressource = Frame(self.root, width=200, relief="groove")
         self.frame_ressource.grid(column=1, row=1)
 
-    def _command_open(
-        self
-    ):  # Fonction ouvrant le fichier choisis et l'assigne à save
-
-        filename = askopenfilename()
-        try:
-            if filename == "":
-                pass
-            else:
-                self.filename = filename
-                if Root.save != []:
-                    self.frame_ressource.destroy()
-                    self.frame_ressource = Frame(self.root, width=1)
-                    self.frame_ressource.grid(column=1, row=1)
-                # import pdb; pdb.set_trace()
-                with open(self.filename, "rb") as file:
-                    my_load = pickle.Unpickler(file)
-                    Root.save = my_load.load()
-                for element in Root.save:
-                    self.frame = MyFrame(self.frame_ressource, element)
-                    self.frame.creation_my_frame()
-        except TypeError:
-            pass
-
-    def _command_save(self):  # Fonction sauvegardant toutes les valeurs de save
-        
+    def _save(self):
         if self.filename == "":
-            pass
+            self._save_as()
         else:
 
             # for element in self.listeframe:
             #     self.save.append(element.liste_val)
-            
+            self.save.save_data(self.filename)
+            showinfo("File saved", "Your file is saved")
 
-            with open(self.filename, "wb") as file:
-                my_save = pickle.Pickler(file)
-                my_save.dump(self.save)
-
-            showinfo("File saved", "Your file is save")
-
-    def _command_save_as(self):  # fonction lié au bouton save as
+    def _save_as(self):
         filename = asksaveasfilename()
         if filename == "":
             pass
         else:
             self.filename = filename
-            self.command_save()
+            self._save()
 
-    def _command_add(self):
+    def _add(self):
         liste = DefVal()
         liste.creation_fenetre()
 
         if liste.valeurs[0] == "":
             pass
         else:
-            Root.save.add_data(liste.valeurs)
-            frame = MyFrame(self.frame_ressource, liste.valeurs)
-            Root.listeframe.append(frame)
+            self.save.add_data(liste.valeurs[0],liste.valeurs[1:])
+            frame = MyFrame(self.frame_ressource, liste.valeurs[0])
+
             frame.creation_my_frame()
 
-
+    def _open(self):
+        self._new()
+        filename = askopenfilename()
+        try:
+            if filename == "":
+                pass
+            else:
+                self.filename = filename
+                # import pdb; pdb.set_trace()
+                self.save.load_data(self.filename)             
+                for element in self.save.data:
+                    self.frame = MyFrame(self.frame_ressource, element)
+                    self.frame.creation_my_frame()
+        except TypeError:
+            pass
 # Cration de l'objet frame dans lequel se trouve un label avec une valeur, une zone d'entrée et un bouton
 
 
 class MyFrame:
-    def __init__(self, root, liste):  # Initialisation de My Frame
+    def __init__(self, root, key):  # Initialisation de My Frame
         self.root = root
-        self.liste_val = liste
-        self.i = Root.save.index(liste)
-        self.nom = self.liste_val[0]
-        self.vmin = self.liste_val[1]
-        self.vmax = self.liste_val[2]
-        self.vdefaut = self.liste_val[3]
-        self.vact = self.liste_val[4]
+        self.name = key
+        self.vmin = Root.save.data[key].get("vmin")
+        self.vmax = Root.save.data[key].get("vmax")
+        self.vdefaut = Root.save.data[key].get("vdefaut")
+        self.vact = Root.save.data[key].get("vact")
         self.myframe = Frame(self.root)
-
+        # import pdb; pdb.set_trace()
     def creation_my_frame(self):  # Creation de la fenêtre
 
         self._creation_lbl_entry()
-        self._creation_button(),
+        self._creation_button()
         self.myframe.pack(pady=5)
 
     def _creation_lbl_entry(
         self,
-    ):  # Creation du label du nom est du label de la valeur affiché
+    ):  # Creation du label du name est du label de la valeur affiché
         self.text = StringVar()
         self.text.set(str(self.vact))
-        self.lbl1 = Label(self.myframe, text=(self.nom, ":"), width=6)
-        self.lbl1.grid(row=0, column=1)
+        lbl1 = Label(self.myframe, text=(self.name, ":"), width=10)
+        lbl1.grid(row=0, column=1)
 
-        self.lbl2 = Label(self.myframe, textvariable=self.text)
-        self.lbl2.grid(row=0, column=2)
+        lbl2 = Label(self.myframe, textvariable=self.text)
+        lbl2.grid(row=0, column=2)
 
         self.entri = Entry(self.myframe, width=10)
-        self.entri.bind("<Return>", self._valid_ok)
+        self.entri.bind("<Return>", self._command_ok)
         self.entri.grid(row=0, column=3)
 
     def _creation_button(
         self,
     ):  # Creation des boutons de modification, de suppression et de reset
         self.photo_reset = PhotoImage(file="image/fleche_reset.gif")
-        self.bps_reset = Button(
+        bps_reset = Button(
             self.myframe, image=self.photo_reset, command=self._button_reset
         )
-        self.bps_reset.grid(row=0, column=4)
+        bps_reset.grid(row=0, column=4)
 
         self.photo_modifie = PhotoImage(file="image/mini_crayon.gif")
-        self.bps_modifie = Button(
+        bps_modifie = Button(
             self.myframe, image=self.photo_modifie, command=self._button_modifie
         )
-        self.bps_modifie.grid(row=0, column=5)
+        bps_modifie.grid(row=0, column=5)
 
         self.photo_delete = PhotoImage(file="image/mini_corbeille.gif")
-        self.bps_delete = Button(
+        bps_delete = Button(
             self.myframe, image=self.photo_delete, command=self._button_delete
         )
-        self.bps_delete.grid(row=0, column=6)
+        bps_delete.grid(row=0, column=6)
 
     # Fonction du bouton ok qui modifie les valeurs et nettoie l'Entry
-    def _valid_ok(self, event):
-        try:
+    def _command_ok(self, event):
+        self._ok()
 
-            self.get_valeur = int(self.entri.get())
-            # 
-        except ValueError:
-            showerror(
-                "Error message",
-                "Veuillez entrer un entier positif ou negatif ou nul",
-            )
-            get_valeur = 0
-            self.entri.delete(0, END)
-        else:
-            self.vact += self.get_valeur
-
-            if self.vact < self.vmin:
-                self.vact = self.vmin
-            elif self.vact > self.vmax:
-                self.vact = self.vmax
-            self.text.set(str(self.vact))
-            
-            Root.val[self.i][4] = self.vact
-            self.entri.delete(0, END)
 
     def _button_reset(self):  # commande du bouton reset
         self.vact = self.vdefaut
         # self.lbl2["text"] = (self.vact, "/", self.vmax)
         self.text.set(str(self.vact))
+        Root.save.update_data(self.name,"vact",self.vact)
         self.entri.delete(0, END)
+        # import pdb; pdb.set_trace()
 
     def _button_modifie(self):  # commande du bouton modifie
-        # self.listevar=[self.nom,self.vmin,self.vmax,self.vdefaut,self.vact]
-        self.fen = DefVal()
-        self.fen.valeurs = self.liste_val
-        self.fen.creation_fenetre()
-
-        for j in range(0, 4):
-            Root.save[self.i][j] = self.fen.valeurs[j]
-            self.liste_val[j] = self.liste_val[j]
-        self.nom = self.liste_val[0]
-        self.vmin = self.liste_val[1]
-        self.vmax = self.liste_val[2]
-        self.vdefaut = self.liste_val[3]
-        self.lbl1["text"] = self.nom
-        # self.lbl2["text"] = (self.vact, "/", self.vmax)
-        self.text.set(str(self.vact))
+        # self.listevar=[self.name,self.vmin,self.vmax,self.vdefaut,self.vact]
+        
+        self._modifie()
 
     def _button_delete(self):  # commande du delete
-
+        Root.save.del_data(self.name)
         self.myframe.destroy()
-        Root.save.remove(self.liste_val)
+       
 
+    def _test_encadrement(self,vact,vmin,vmax):
+        
+        if vact < vmin:
+            vact = vmin
+        elif vact> vmax:
+            vact = vmax
+        return vact
+    
+
+    def _update(self,index,data):
+        self.text.set(str(data))            
+        Root.save.data[self.i][index] = data
+        
+
+    def _test_int(self,vtest):
+        try:
+
+            int(vtest)
+            return True
+        except ValueError:
+            showerror(
+                "Error message",
+                "Veuillez entrer un entier positif ou negatif ou nul",
+            )               
+            return False
+            
+
+    def _ok(self):
+        get_valeur= int(self.entri.get())
+        vact=self.vact 
+        if self._test_int(get_valeur):
+            vact += get_valeur
+            self.vact = self._test_encadrement(vact,self.vmin,self.vmax)
+            self.text.set(str(self.vact))
+            Root.save.update_data(self.name,"vact",self.vact)
+        self.entri.delete(0,END)
+
+    def _modifie(self):
+        self.fen = DefVal()
+        self.fen.modifie = True
+        vact=self.vact
+        self.fen.valeurs = [self.name]+list(Root.save.data[self.name].values())
+        liste_nom = [
+            "vmin",
+            "vmax",
+            "vdefaut",
+        ]
+        self.fen.creation_fenetre()
+
+        for j in range(1, 4):
+            Root.save.update_data(self.name,liste_nom[j-1], self.fen.valeurs[j])
+            
+       
+        self.vmin = Root.save.data[self.name]["vmin"]
+        self.vmax = Root.save.data[self.name]["vmax"]
+        self.vdefaut = Root.save.data[self.name]["vdefaut"]
+        self.vact=self._test_encadrement(vact,self.vmin,self.vmax)
+        self.text.set(str(self.vact))
+            
 
 class DefVal(Root):
     """docstring for DefVal"""
 
     def __init__(self):
         self._valeurs = ["", 0, 0, 0, 0]
+        self.modifie = False
         self.liste_entry = []
         self.win = Toplevel(self.root)
         self.win.geometry("+320+0")
@@ -331,23 +357,41 @@ class DefVal(Root):
         self._creation_button()
         self.win.mainloop()
 
-    def _creation_ligne(self):  # We create lines of the window of Def val
+    def _creation_ligne(self):  # We create lines of the window of Def data
 
         self.liste_nom = [
-            "Nom:",
+            "name:",
             "Valeur min:",
             "Valeur max:",
             "Valeur par defaut:",
-        ]  # We make a liste with name of label
+        ]  # We make a list with name of label
         for i in range(4):
             self.frame = Frame(self.win, width=35)
             self.frame.pack()
-            self.lbl = Label(self.frame, text=self.liste_nom[i], width=18)
-            self.lbl.pack(side=LEFT)
-            self.entry = Entry(self.frame, width=10)
-            self.entry.insert(0, self._valeurs[i])
-            self.entry.pack(side=RIGHT)
-            self.liste_entry.append(self.entry)
+            if self.modifie:
+                if i == 0:
+                    self._creation_label(self.frame,self.valeurs[i])
+                   
+                else:    
+                    self._creation_label(self.frame,self.liste_nom[i])
+                    self._creation_entry(self.frame,self._valeurs[i])
+            else:
+                self._creation_label(self.frame,self.liste_nom[i])
+                self._creation_entry(self.frame,self._valeurs[i])
+               
+        
+    def _creation_label(self,frame,name):
+        self.lbl = Label(self.frame, text=name, width=18)
+        self.lbl.pack(side=LEFT)
+
+
+
+    def _creation_entry(self , frame, value):
+        self.entry = Entry(frame, width=10)
+        self.entry.insert(0, value)
+        self.entry.pack(side=RIGHT)
+        self.liste_entry.append(self.entry)
+
 
     def _creation_button(self):
         self.frame_button = Frame(self.win, width=15)
@@ -362,17 +406,22 @@ class DefVal(Root):
         self.button_cancel.pack(side=RIGHT, padx=5)
 
     def _commande_ok(self):
-        test = None
-        self.valeurs[0] = str(self.liste_entry[0].get())  # nom
-        self.valeurs[1] = self.liste_entry[1].get()  # min
-        self.valeurs[2] = self.liste_entry[2].get()  # max
-        self.valeurs[3] = self.liste_entry[3].get()  # valeur par defaut
-        self._test_encadrement(self.valeurs)
+
+        self._get_value()
+        if self._test_int(self.valeurs[1:3]):
+            if self._test_ordre(self.valeurs[1],self.valeurs[2],self.valeurs[3]):
+                if not self.modifie:
+                    self.valeurs[4] = self.valeurs[3]
+            
+                
+                self._quit()
+
+        
 
     def _command_cancel(self):
 
-        self.win.quit()
         self.win.destroy()
+       
 
     def _test_encadrement(self, liste):
 
@@ -383,21 +432,35 @@ class DefVal(Root):
                 if index != 0:
                     self.valeurs[index] = int(self.valeurs[index])
             if liste[0] == "":
-                self.win.destroy()
-                self.win.quit()
-            if self.valeurs[1] > liste[2]:
+                return False
+            if liste[1] > liste[2]:
                 showinfo("info", "Le minimum doit être plus petit que le maximum")
+                
             if liste[3] < liste[1] or liste[3] > liste[2]:
                 showinfo(
                     "Info",
                     "La valeur par défaut doit être comprise entre le minium et le maximum",
                 )
+                
             else:
-                self.valeurs[4] = self.valeurs[3]
-                self.win.quit()
-                self.win.destroy()
+                
+                return True
         else:
-            pass
+            return False
+
+    def _test_ordre(self, vmin, vmax, test_value):
+        if vmin>vmax:
+             showinfo("info", "Le minimum doit être plus petit que le maximum")
+             return False
+        elif test_value<vmin or test_value>vmax:
+            showinfo(
+                    "Info",
+                    "La valeur par défaut doit être comprise entre le minium et le maximum",
+                )
+            return False
+        else:
+            return True
+
 
     def _test_int(self, liste):
         try:
@@ -409,11 +472,24 @@ class DefVal(Root):
             return True
         except ValueError:
             showerror("Message d'erreur", "Veuillez entrer un entier")
-            return False
+            
 
+    def _get_value(self):
+        if self.modifie:
+            self.valeurs[1] = int(self.liste_entry[0].get())  # min
+            self.valeurs[2] = int(self.liste_entry[1].get())  # max
+            self.valeurs[3] = int(self.liste_entry[2].get())  # valeur par def
+        else:
+            self.valeurs[0] = str(self.liste_entry[0].get())  # name
+            self.valeurs[1] = int(self.liste_entry[1].get())  # min
+            self.valeurs[2] = int(self.liste_entry[2].get())  # max
+            self.valeurs[3] = int(self.liste_entry[3].get())  # valeur par defaut
 
+    def _quit(self):
+        self.win.quit()
+        self.win.destroy()
 
-
+        
     
 
 
@@ -469,22 +545,40 @@ class Data_Frame(object):
           
 
 def main():
-    # gestionnaire_ressource = Root()
-    # gestionnaire_ressource.creation_fenetre()
-    test=DataManage()
-    (liste,liste1)=(['Pv', -10, 20, 20, 0],['Mana', 0, 20, 20, 0])
+    gestionnaire_ressource = Root()
+    gestionnaire_ressource.creation_fenetre()
     
-    test.add_data(liste)
-    import pdb; pdb.set_trace()
-    test.add_data(liste1)
     
     # test._json_to_list({'Pv': {'vmin': -10, 'vmax': 20, 'vdefaut': 20, 'vact': 0}, 'Mana': {'vmin': 0, 'vmax': 20, 'vdefaut': 20, 'vact': 0}})
+   
     
+def test_data():
+    test=DataManage()
+    (liste,liste1)=([-10, 20, 20, 0],[0, 20, 20, 0])
     
+    test.add_data("PV",liste)
+    
+    test.add_data("Mana", liste1)
 
-
-
-
+def test_ordre(vmin, vmax, test_value):
+    if vmin>vmax:
+         print("info", "Le minimum doit être plus petit que le maximum")
+         return False
+    elif test_value<vmin or test_value>vmax:
+        print(
+                "Info",
+                "La valeur par défaut doit être comprise entre le minium et le maximum",
+            )
+        return False
+    else:
+     
+        print("Le test est bon")
+        return True
+def several_test_order():
+    test_ordre(-10, 100 , 60)
+    test_ordre(-10, 100 , 120)
+    test_ordre(-10, 100 , -60)
+    test_ordre(-10, -100 , 60)
 if __name__ == "__main__":
     main()
 
