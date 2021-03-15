@@ -84,7 +84,7 @@ class Root(object):
         self.root.bind("<Escape>", self._confirmerquitter)
 
     def _confirmerquitter(self):
-        if askyesno("Quitter", "Voulez-vous vraiment quitter ?"):
+        if askyesno("Quit", "Do you want to quit ?"):
             self.root.destroy()
 
     def _escape_command(self, event):
@@ -219,10 +219,10 @@ class MyFrame:
     ):  # Creation du label du name est du label de la valeur affiché
         self.text = StringVar()
         self.text.set(str(self.vact))
-        lbl1 = Label(self.myframe, text=(self.name, ":"), width=10)
+        lbl1 = Label(self.myframe, text=self.name+":",justify="left")
         lbl1.grid(row=0, column=1)
 
-        lbl2 = Label(self.myframe, textvariable=self.text)
+        lbl2 = Label(self.myframe, textvariable=self.text, justify="right")
         lbl2.grid(row=0, column=2)
 
         self.entri = Entry(self.myframe, width=10)
@@ -269,8 +269,13 @@ class MyFrame:
         self._modifie()
 
     def _button_delete(self):  # commande du delete
-        Root.save.del_data(self.name)
-        self.myframe.destroy()
+        self._delete()
+
+
+    def _delete(self):
+         if askyesno("Delete", "Do you want to delete ?"):
+            Root.save.del_data(self.name)
+            self.myframe.destroy()
        
 
     def _test_encadrement(self,vact,vmin,vmax):
