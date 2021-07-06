@@ -1,0 +1,32 @@
+{
+    "Pv": {
+        "vmin": -10,
+        "vmax": 131,
+        "vdefaut": 131,
+        "vact": 101
+    },
+    "PO": {
+        "vmin": 0,
+        "vmax": 10000000,
+        "vdefaut": 10000,
+        "vact": 11000
+    },
+    "PA": {
+        "vmin": 0,
+        "vmax": 100000,
+        "vdefaut": 1626,
+        "vact": 1626
+    },
+    "PC": {
+        "vmin": 0,
+        "vmax": 100000,
+        "vdefaut": 1752,    
+        "vact": 1752
+    },
+    "Imposition des mains": {
+        "vmin": 0,
+        "vmax": 36,
+        "vdefaut": 36,
+        "vact": 36
+    }
+}

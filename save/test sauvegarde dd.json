@@ -1,0 +1,68 @@
+{
+    "Pv": {
+        "vmin": -10,
+        "vmax": 107,
+        "vdefaut": 107,
+        "vact": 100
+    },
+    "PO": {
+        "vmin": 0,
+        "vmax": 10000000,
+        "vdefaut": 4300,
+        "vact": 4300
+    },
+    "PA": {
+        "vmin": 0,
+        "vmax": 100000,
+        "vdefaut": 1626,
+        "vact": 1626
+    },
+    "PC": {
+        "vmin": 0,
+        "vmax": 100000,
+        "vdefaut": 1752,
+        "vact": 1752
+    },
+    "Renvoi de mort vivant": {
+        "vmin": 0,
+        "vmax": 4,
+        "vdefaut": 4,
+        "vact": 4
+    },
+    "Renvoi MV": {
+        "vmin": 0,
+        "vmax": 4,
+        "vdefaut": 4,
+        "vact": 4
+    },
+    "Renvoi": {
+        "vmin": 0,
+        "vmax": 0,
+        "vdefaut": 0,
+        "vact": 0
+    },
+    "a": {
+        "vmin": 0,
+        "vmax": 0,
+        "vdefaut": 0,
+        "vact": 0
+    },
+    "z": {
+        "vmin": 0,
+        "vmax": 0,
+        "vdefaut": 0,
+        "vact": 0
+    },
+    "e": {
+        "vmin": 0,
+        "vmax": 0,
+        "vdefaut": 0,
+        "vact": 0
+    },
+    "r": {
+        "vmin": 0,
+        "vmax": 0,
+        "vdefaut": 0,
+        "vact": 0
+    }
+}

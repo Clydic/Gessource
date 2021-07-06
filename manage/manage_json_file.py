@@ -18,7 +18,7 @@ def main():
 	pprint(datas["description_sort"].keys())
 	for key in datas["description_sort"].keys():
 		print(key)
-	
+
 
 if __name__=="__main__":
 	main()
