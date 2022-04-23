@@ -3,7 +3,7 @@
         "vmin": -10,
         "vmax": 131,
         "vdefaut": 131,
-        "vact": 47
+        "vact": 71
     },
     "PO": {
         "vmin": 0,
@@ -33,6 +33,6 @@
         "vmin": 0,
         "vmax": 100,
         "vdefaut": 0,
-        "vact": 0
+        "vact": 8
     }
 }
