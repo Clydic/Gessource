@@ -1,15 +1,15 @@
 {
     "Pv": {
         "vmin": -10,
-        "vmax": 131,
-        "vdefaut": 131,
-        "vact": 71
+        "vmax": 197,
+        "vdefaut": 119,
+        "vact": 106
     },
     "PO": {
         "vmin": 0,
         "vmax": 10000000,
         "vdefaut": 10000,
-        "vact": 9500
+        "vact": 16536
     },
     "PA": {
         "vmin": 0,
