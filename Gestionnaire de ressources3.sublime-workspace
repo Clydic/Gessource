@@ -1,0 +1,990 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"us",
+				"using\tnamespace"
+			],
+			[
+				"incl",
+				"I-functional\tinc"
+			],
+			[
+				"nombre",
+				"nombreTentative"
+			],
+			[
+				"cou",
+				"cout\tiostream"
+			],
+			[
+				"in",
+				"includes\tfunc"
+			],
+			[
+				"fle",
+				"filename"
+			],
+			[
+				"encr",
+				"encrypt_list_dic"
+			],
+			[
+				"R",
+				"RIGHT"
+			],
+			[
+				"begin",
+				"\\begin{description}                               \tlatex-document"
+			],
+			[
+				"beg",
+				"\\begin{tabular}{cols}                             \tlatex-document"
+			],
+			[
+				"sectio",
+				"\\section*{title}                                  \tlatex-document"
+			],
+			[
+				"title",
+				"\\titlepage                                        \tclass-beamer"
+			],
+			[
+				"tab",
+				"\\tableofcontents                                  \tlatex-document"
+			],
+			[
+				"frame",
+				"\\frametitle{frame title text}                     \tclass-beamer"
+			],
+			[
+				"end",
+				"\\end{}                                            \tlatex-document"
+			],
+			[
+				"useth",
+				"\\usetheme{name list}                              \tclass-beamer"
+			],
+			[
+				"be",
+				"\\begin{itemize}                                   \tlatex-document"
+			],
+			[
+				"over",
+				"\\overline{text}                                   \tlatex-document"
+			],
+			[
+				"subse",
+				"\\subset                                           \tlatex-mathsymbols"
+			],
+			[
+				"h",
+				"\\hline                                            \tlatex-document"
+			],
+			[
+				"om",
+				"\\omega                                            \tlatex-mathsymbols"
+			],
+			[
+				"su",
+				"\\subparagraph*{title}                             \tlatex-document"
+			],
+			[
+				"Epsi",
+				"\\varepsilon                                       \tlatex-mathsymbols"
+			],
+			[
+				"ma",
+				"\\maketitle                                        \tlatex-document"
+			],
+			[
+				"ti",
+				"\\title{text}                                      \tlatex-document"
+			],
+			[
+				"para",
+				"\\paragraph{title}                                 \tlatex-document"
+			],
+			[
+				"new",
+				"newmdp"
+			],
+			[
+				"hs",
+				"\\hspace*{length}                                  \tlatex-document"
+			],
+			[
+				"txt",
+				"\\textbf{text}                                     \tlatex-document"
+			],
+			[
+				"ne",
+				"\\newline                                          \tlatex-document"
+			],
+			[
+				"no",
+				"nom_lbl"
+			],
+			[
+				"lis",
+				"list_dic"
+			],
+			[
+				"si",
+				"site"
+			],
+			[
+				"el",
+				"elt_max"
+			],
+			[
+				"def",
+				"def\tFunction"
+			],
+			[
+				"list",
+				"list_dic"
+			],
+			[
+				"li",
+				"list_dic"
+			],
+			[
+				"mot",
+				"mot_de_passe"
+			],
+			[
+				"enc",
+				"encrypt_list_dic"
+			],
+			[
+				"Cah",
+				"Change_main_password"
+			],
+			[
+				"Ne",
+				"NewPassword"
+			],
+			[
+				"de",
+				"destroy"
+			],
+			[
+				"del",
+				"delete"
+			],
+			[
+				"r",
+				"root"
+			],
+			[
+				"Co",
+				"ConfirmerQuitter"
+			],
+			[
+				"Pas",
+				"Password"
+			],
+			[
+				"cla",
+				"class\tNew Class"
+			],
+			[
+				"lsit",
+				"list_entry"
+			],
+			[
+				"cre",
+				"creation_entry"
+			],
+			[
+				"liste",
+				"liste2"
+			],
+			[
+				"entry",
+				"entrypassword"
+			],
+			[
+				"sit",
+				"SiteWin"
+			],
+			[
+				"pasw",
+				"password"
+			],
+			[
+				"re",
+				"return"
+			],
+			[
+				"en",
+				"encrypt_list_dic"
+			],
+			[
+				"des",
+				"destroy"
+			],
+			[
+				"file",
+				"filename"
+			],
+			[
+				"co",
+				"ConfirmerQuitter"
+			],
+			[
+				"Password",
+				"PasswordAgencyWin"
+			],
+			[
+				"v",
+				"value"
+			],
+			[
+				"fil",
+				"filename"
+			],
+			[
+				"pass",
+				"Password"
+			],
+			[
+				"get",
+				"get_entry"
+			],
+			[
+				"fr",
+				"frame"
+			],
+			[
+				"ge",
+				"get_entry"
+			],
+			[
+				"lbl",
+				"lbl"
+			],
+			[
+				"fi",
+				"fichier"
+			],
+			[
+				"P",
+				"Pickler"
+			],
+			[
+				"sav",
+				"save_command"
+			],
+			[
+				"l",
+				"login"
+			],
+			[
+				"d",
+				"dicsite"
+			],
+			[
+				"di",
+				"dicsite"
+			],
+			[
+				"lb",
+				"lblentry"
+			],
+			[
+				"w",
+				"win"
+			],
+			[
+				"a",
+				"append"
+			],
+			[
+				"se",
+				"set_dic"
+			],
+			[
+				"creation",
+				"creation_liste"
+			],
+			[
+				"dic",
+				"dicsite"
+			],
+			[
+				"_",
+				"_diclist"
+			],
+			[
+				"s",
+				"self"
+			],
+			[
+				"entre",
+				"entree_valeur"
+			],
+			[
+				"Sit",
+				"SiteWin"
+			],
+			[
+				"pas",
+				"PasswordAgencyWin"
+			],
+			[
+				"PPl",
+				"Ppl"
+			],
+			[
+				"m",
+				"max"
+			],
+			[
+				"Tk",
+				"Tkinter"
+			],
+			[
+				"valid",
+				"command_valid_ok"
+			],
+			[
+				"val",
+				"val_Pv_max"
+			],
+			[
+				"va",
+				"val_Pv_max"
+			],
+			[
+				"vale",
+				"valeur_max"
+			],
+			[
+				"My",
+				"MyFrame"
+			],
+			[
+				"MyFrameP",
+				"MyFramePvMax"
+			],
+			[
+				"pv",
+				"val_Pv_max"
+			],
+			[
+				"command",
+				"command_ok"
+			],
+			[
+				"Pv",
+				"PvBourse"
+			],
+			[
+				"comman",
+				"command_ok"
+			],
+			[
+				"cr",
+				"creation_fenetre"
+			],
+			[
+				"p",
+				"pv_bourse"
+			],
+			[
+				"Pv_",
+				"val_PV_max"
+			],
+			[
+				"comma",
+				"command_ok"
+			],
+			[
+				"ad",
+				"add_cascade"
+			],
+			[
+				"val_",
+				"val_PV_max"
+			],
+			[
+				"pad",
+				"pady"
+			],
+			[
+				"bps",
+				"bps_cancel"
+			],
+			[
+				"L",
+				"LEFT"
+			],
+			[
+				"bp",
+				"bps_modifie"
+			],
+			[
+				"fra",
+				"framelbl"
+			],
+			[
+				"nom",
+				"nomchamp"
+			],
+			[
+				"champ",
+				"champ"
+			],
+			[
+				"Si",
+				"SiteWin"
+			],
+			[
+				"main",
+				"mainloop"
+			],
+			[
+				"la",
+				"label"
+			],
+			[
+				"menu",
+				"menubar"
+			],
+			[
+				"men",
+				"menubar"
+			],
+			[
+				"f",
+				"filename"
+			],
+			[
+				"com",
+				"command_save"
+			],
+			[
+				"comm",
+				"command"
+			],
+			[
+				"lin",
+				"ligne1"
+			],
+			[
+				"as",
+				"askopenfilename"
+			],
+			[
+				"myfr",
+				"my_frames"
+			],
+			[
+				"pa",
+				"PA"
+			],
+			[
+				"lig",
+				"ligne2"
+			],
+			[
+				"M",
+				"MyFrame"
+			],
+			[
+				"fram",
+				"Frame"
+			],
+			[
+				"Im",
+				"ImageTk"
+			],
+			[
+				"mi",
+				"mise"
+			],
+			[
+				"C",
+				"continuez"
+			],
+			[
+				"V",
+				"Voulez-vous"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "Packages/C++/C++ Single File.sublime-build",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"Main",
+				"C++YouCompleteMe: Goto declaration"
+			],
+			[
+				"snipp",
+				"Snippet: main()"
+			],
+			[
+				"new",
+				"File: New View into File"
+			],
+			[
+				"sch",
+				"UI: Select Color Scheme"
+			],
+			[
+				"Theme",
+				"UI: Select Color Scheme"
+			],
+			[
+				"the",
+				"UI: Select Theme"
+			],
+			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"theme",
+				"UI: Select Theme"
+			],
+			[
+				"c++",
+				"Set Syntax: C++"
+			],
+			[
+				"C++",
+				"C++YouCompleteMe: Goto declaration"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"ta",
+				"Snippet: table"
+			],
+			[
+				"latex:us",
+				"LaTeXTools: Build cache of LaTeX packages"
+			],
+			[
+				"begi",
+				"Snippet: \\begin{}…\\end{}"
+			],
+			[
+				"ne",
+				"Snippet: NewDocument"
+			],
+			[
+				"com",
+				"Toggle Comment"
+			],
+			[
+				"fon",
+				"Snippet: Function"
+			],
+			[
+				"des",
+				"Snippet: Description"
+			],
+			[
+				"item",
+				"Emmet: Select Next Item"
+			],
+			[
+				"para",
+				"Snippet: Paragraph"
+			],
+			[
+				"bea",
+				"Snippet: Beamer frame"
+			],
+			[
+				"emph",
+				"Snippet: Emphasize text"
+			],
+			[
+				"snippet:N",
+				"Snippet: NewDocument"
+			],
+			[
+				"sni",
+				"Snippet: CDATA"
+			],
+			[
+				"sn",
+				"Snippet: Section"
+			],
+			[
+				"bui",
+				"Build With: LaTeX - PdfLaTeX"
+			],
+			[
+				"Snippet: ",
+				"Snippet: Lorem ipsum"
+			],
+			[
+				"snippet:",
+				"Snippet: Cases"
+			],
+			[
+				"tab",
+				"Snippet: Tabular"
+			],
+			[
+				"compl",
+				"LaTeXTools: Create mousemap in user folder"
+			],
+			[
+				"comma",
+				"Snippet: Wrap selection in LaTeX command"
+			],
+			[
+				"la",
+				"LaTeXTools: Search for commands in document"
+			],
+			[
+				"latex",
+				"LaTeXTools: Search for commands in document"
+			],
+			[
+				"Snippet: la",
+				"Snippet: Insert a LaTeX environment"
+			],
+			[
+				"Sni",
+				"Snippet: if __name__ == '__main__'"
+			],
+			[
+				"Snippet: f",
+				"Snippet: Function"
+			],
+			[
+				"Package Control: :late",
+				"Package Control: List Packages"
+			],
+			[
+				"lat",
+				"Set Syntax: LaTeX"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 143.0,
+		"history":
+		[
+			"install",
+			"import urllib.request,os,hashlib; h = '6f4c264a24d933ce70df5dedcf1dcaee' + 'ebe013ee18cced0ef93d5f746d80ef60'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by) ",
+			".sublime",
+			"exit()",
+			"1+1",
+			"sbl",
+			"exit()",
+			"sbl",
+			"a+b",
+			"b=4",
+			"a=2",
+			"import Tkinter",
+			"import tkinter",
+			"1+1",
+			"import python",
+			"import this"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/sweety/Documents/Documents/Dossier programmation/Fichier C++/Rpg/Personnage.h",
+		"/home/sweety/Documents/Documents/Dossier programmation/Fichier C++/Rpg/Personnage.cpp",
+		"/home/sweety/Documents/programmation/Gessource/Gessource/Gestionnaire de ressources3.py",
+		"/home/sweety/Documents/programmation/Gestionnaire de ressource/setup.py",
+		"/media/sweety/Users/Sweety/Documents/Dossier programmation/Fichier C++/monprogramme/math.cpp",
+		"/home/sweety/Documents/Documents/Dossier programmation/java/helloworld.java",
+		"/home/sweety/.config/sublime-text-3/Packages/User/C++.sublime-build",
+		"/media/sweety/Users/Sweety/Documents/Dossier programmation/Fichier C++/monprogramme/nombre_de_seocnde.cpp",
+		"/media/sweety/Users/Sweety/Documents/Dossier programmation/Fichier C++/monprogramme/main.cpp",
+		"/media/sweety/Users/Sweety/Documents/Dossier programmation/Fichier C++/monprogramme/monprogramme.depend",
+		"/home/sweety/Documents/programmation/monprogramme/monprogramme.depend",
+		"/C/Users/Sweety/Documents/Fichier C++/les tableaux/lestableaux/lestableaux.cbp",
+		"/C/Users/Sweety/Documents/Fichier C++/monprogramme/monprogramme.cbp",
+		"/C/Users/Sweety/Google Drive/jdr/monstres/blaireau monstrueux.tex",
+		"/C/Users/Sweety/Documents/Fichier C++/monprogramme/main.cpp",
+		"/C/Users/Sweety/Documents/Fichier C++/monprogramme/les meilleurs score.cpp",
+		"/C/Users/Sweety/Documents/Fichier C++/monprogramme/math.h",
+		"/C/Users/Sweety/Documents/Fichier C++/monprogramme/nombre_de_seocnde.cpp",
+		"/C/Users/Sweety/AppData/Roaming/Sublime Text 3/Packages/User/Début fichier C++.sublime-snippet",
+		"/C/Users/Sweety/AppData/Roaming/Sublime Text 3/Packages/User/UsePackage.sublime-snippet",
+		"/C/Program Files/Sublime Text 3/Packages/C#.sublime-package",
+		"/C/Users/Sweety/AppData/Roaming/Sublime Text 3/Packages/User/NewDocument.sublime-snippet",
+		"/C/Users/Sweety/Documents/DocumentLatex/Caydic le barbarde lvl 7.tex",
+		"/C/Users/Sweety/AppData/Roaming/Sublime Text 3/Packages/C++ Snippets/reference.md",
+		"/C/Users/Sweety/Documents/Fichier C++/monprogramme/math.cpp",
+		"/C/Users/Sweety/AppData/Roaming/Sublime Text 3/Packages/pygments/all/pygments/lexers/python.py",
+		"/C/Users/Sweety/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/C/Users/Sweety/AppData/Roaming/Sublime Text 3/Packages/pygments/all/pygments/styles/monokai.py",
+		"/C/Users/Sweety/AppData/Roaming/Sublime Text 3/Packages/pygments/all/pygments/lexers/c_cpp.py",
+		"/C/Users/Sweety/AppData/Local/Sublime Text 3/Cache/Monokai++/themes/Monokai++.tmTheme.cache",
+		"/C/Users/Sweety/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/C/Users/Sweety/AppData/Roaming/Sublime Text 3/Packages/C++YouCompleteMe/C++YouCompleteMe.sublime-settings",
+		"/C/Users/Sweety/AppData/Roaming/Sublime Text 3/Packages/User/C++YouCompleteMe.sublime-settings",
+		"/C/Users/Sweety/AppData/Roaming/Sublime Text 3/Packages/backrefs/tools/__init__.py",
+		"/C/Users/Sweety/AppData/Roaming/Sublime Text 3/Packages/User/Compilation C C++.sublime-build",
+		"/C/Users/Sweety/Documents/FichierPython/InterfaceGestionnaire.py",
+		"/C/Users/Sweety/Documents/FichierPython/Agency 2.0/PasswordAgency.py",
+		"/C/Users/Sweety/Documents/FichierPython/Agency 2.0/encrypt_dececrypt.py",
+		"/F/Agency 2.0/PasswordAgency.py",
+		"/F/Agency 2.0/encrypt_dececrypt.pyc",
+		"/C/Python27/setup.py",
+		"/C/Users/Sweety/Documents/FichierPython/Agency 2.0/agency.txt",
+		"/F/agency/password_agency.py",
+		"/C/Users/Sweety/Google Drive/jdr/Univers d'eberron/membre de la secte du sang de vol",
+		"/C/Users/Sweety/Documents/FichierPython/Agency/PasswordAgency.py",
+		"/C/Users/Sweety/Documents/FichierPython/PvBourses27 version orientale.py",
+		"/G/D&D/Fiche de perso D & D.tex",
+		"/C/Users/Sweety/Documents/FichierPython/Agency/encrypt_dececrypt.py",
+		"/C/Users/Sweety/Documents/DocumentLatex/test4.pdf",
+		"/C/Users/Sweety/Google Drive/jdr/PJ/Caydic/Fiche descritive Caydic le Barbare.tex",
+		"/C/Users/Sweety/Google Drive/jdr/PJ/Caydic/Fiche descritive Caydic le Barbare v2.aux.tex",
+		"/C/Users/Sweety/Documents/DocumentLatex/Math and music/Maths and music expo.tex",
+		"/C/Users/Sweety/Documents/DocumentLatex/Cm probabilités/Cm probabilités.tex",
+		"/C/Users/Sweety/Documents/DocumentLatex/carted'identité.tex",
+		"/C/Users/Sweety/Documents/DocumentLatex/ExpoLafforgue.tex",
+		"/C/Users/Sweety/Documents/DocumentLatex/test/test  diapo.tex",
+		"/C/Users/Sweety/Documents/DocumentLatex/Cours de géométrie.tex",
+		"/C/Users/Sweety/Documents/DocumentLatex/CV/CV.tex",
+		"/C/Users/Sweety/Documents/FichierPython/testwxpython.py",
+		"/C/Users/Sweety/Documents/FichierPython/Agency/markpage.txt",
+		"/C/Users/Sweety/Documents/FichierPython/PvBourses27.py",
+		"/C/Users/Sweety/Documents/FichierPython/Agency/mdpmarkpage.txt",
+		"/C/Users/Sweety/Documents/DocumentLatex/Roman mariane.tex",
+		"/C/Users/Sweety/Documents/DocumentLatex/lettre de motivation/modèle lettre de motivation.tex",
+		"/C/Users/Sweety/Documents/DocumentLatex/lettre de motivation/lettre de motivation.tex",
+		"/C/Users/Sweety/Documents/DocumentLatex/Cours de géométrie.pdf",
+		"/C/Users/Sweety/Documents/DocumentLatex/modèle lettre.tex",
+		"/C/Users/Sweety/Documents/FichierPython/mdpmarkpage.txt",
+		"/C/Users/Sweety/Documents/FichierPython/PasswordAgency.py",
+		"/C/Users/Sweety/mdpmarkpage.txt",
+		"/C/Users/Sweety/Documents/FichierPython/cours open classroom.py",
+		"/C/Users/Sweety/Documents/FichierPython/PvBourses.py",
+		"/C/Users/Sweety/Documents/pyaes-master/pyaes-master/pyaes/aes.py",
+		"/C/Users/Sweety/Documents/FichierPython/markpage",
+		"/C/Users/Sweety/markpage.txt",
+		"/C/Users/Sweety/Documents/FichierPython/markpage.txt",
+		"/E/agency/password_agency.py",
+		"/C/Users/Sweety/Documents/pyaes-master/pyaes-master/pyaes/__init__.py",
+		"/C/Users/Sweety/Documents/FichierPython/interface gestionnaire.py",
+		"/C/Users/Sweety/Documents/FichierPython/testeur",
+		"/C/Users/Sweety/Documents/FichierPython/sauvegarde_les_royaumes",
+		"/C/Users/Sweety/AppData/Local/Programs/Python/Python37-32/setup.py",
+		"/G/document/autre fichier/informatique/td tp info py/tp6.py",
+		"/G/document/autre fichier/informatique/td tp info py/td7.py",
+		"/G/document/autre fichier/informatique/td tp info py/tdtp12v2011.py",
+		"/G/document/autre fichier/informatique/td tp info py/tp5.py",
+		"/G/document/autre fichier/informatique/td tp info py/tp4.py",
+		"/G/document/autre fichier/informatique/td tp info py/tp3.py",
+		"/G/document/autre fichier/informatique/td tp info py/tp8.py",
+		"/G/document/autre fichier/informatique/td tp info py/tp2.py",
+		"/C/Users/Sweety/Documents/FichierPython/PvBourses27/exe.win-amd64-2.7/PvBourses27.exe",
+		"/C/Users/Sweety/Desktop/crypter-decrypter/setup.py",
+		"/E/agency/encrypt_dececrypt.py",
+		"/C/Python27/Lib/site-packages/cx_Freeze/samples/Tkinter/SimpleTkApp.py",
+		"/C/Python27/Lib/site-packages/cx_Freeze/samples/Tkinter/setup.py",
+		"/C/Python27/Lib/lib-tk/Tkinter.py",
+		"/C/Python27/Lib/traceback.py",
+		"/C/Users/Sweety/Google Drive/jdr/PvBourses.bat",
+		"/C/Python27/Scripts/InterfaceGestionnaire/_ctypes.pyd",
+		"/C/Users/Sweety/Documents/FichierPython/PvBourses.bat",
+		"/C/Users/Sweety/AppData/Local/Programs/Python/Python37-32/PvBourses.bat",
+		"/C/Users/Sweety/Downloads/anthony_tuininga-cx_freeze-e1ba6ec6eaad/anthony_tuininga-cx_freeze-e1ba6ec6eaad/setup.py",
+		"/C/Users/Sweety/Documents/FichierPython/PvBourses_non_oriente.py",
+		"/C/Users/Sweety/Documents/FichierPython/test.py",
+		"/C/Users/Sweety/Documents/FichierPython/sauvegarde_les_royaumes.txt",
+		"/C/Users/Sweety/Documents/FichierPython/binding.py",
+		"/G/document/autre fichier/informatique/agency/password_agency.py",
+		"/C/Users/Sweety/AppData/Local/Programs/Python/Python37-32/Lib/tkinter/__init__.py",
+		"/C/Users/Sweety/AppData/Local/Programs/Python/Python37-32/Lib/tkinter/__main__.py",
+		"/C/Users/Sweety/Downloads/SQLiteExplorerV2.py",
+		"/E/agency/agency.txt",
+		"/C/Users/Sweety/Google Drive/jdr/PJ/Caydic/Fiche descritive Caydic le Barbare lvl 11 libérateur sacré v2.tex",
+		"/C/Users/Sweety/Google Drive/jdr/noms de la rebellion",
+		"/G/document/autre fichier/informatique/agency/agency.txt",
+		"/C/Users/Sweety/Documents/DocumentLatex/recette wok de nouille sautée/RecetteDeNouilleSautée.tex",
+		"/C/Users/Sweety/Documents/FichierPython/encrypt_dececrypt.py",
+		"/C/Users/Sweety/Documents/FichierPython/interface gestionnaire 37.py",
+		"/C/Users/Sweety/Google Drive/jdr/PJ/Caydic/background de Caydic.pdf",
+		"/C/Users/Sweety/Google Drive/jdr/background de Caydic.tex",
+		"/C/Users/Sweety/Google Drive/jdr/background de Caydic.log",
+		"/C/Users/Sweety/AppData/Roaming/Sublime Text 3/Packages/User/LaTeXTools.sublime-settings",
+		"/C/Users/Sweety/Google Drive/jdr/PJ/Caydic/background de Caydic.tex",
+		"/G/D&D/PJ/Caydic/background de Caydic.tex",
+		"/C/Users/Sweety/AppData/Roaming/Sublime Text 3/Packages/LaTeXTools/Default (Windows).sublime-keymap",
+		"/C/Users/Sweety/AppData/Roaming/Sublime Text 3/Packages/User/Default (Windows).sublime-keymap",
+		"/C/Users/Sweety/Documents/FichierPython/CoursOpenClassroom.py",
+		"/C/Users/Sweety/AppData/Roaming/Sublime Text 3/Packages/LaTeXTools/latexEnvironment.py",
+		"/C/Users/Sweety/AppData/Roaming/Sublime Text 3/Packages/LaTeXTools/latextools_utils/external_command.py"
+	],
+	"find":
+	{
+		"height": 24.0
+	},
+	"find_in_files":
+	{
+		"height": 104.0,
+		"where_history":
+		[
+			"<current file>",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"double",
+			"int",
+			"std::cin",
+			"std::cout",
+			" std::cout",
+			"<<"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"cin",
+			"cout"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": true,
+		"wrap": false
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 24.0
+	},
+	"input":
+	{
+		"height": 34.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "Packages/User/C++.sublime-build",
+	"project": "Gestionnaire de ressources3.sublime-project",
+	"replace":
+	{
+		"height": 44.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 156.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

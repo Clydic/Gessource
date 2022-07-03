@@ -1,0 +1,8 @@
+{
+    "Mana": {
+        "vmin": 0,
+        "vmax": 30,
+        "vdefaut": 30,
+        "vact": 30
+    }
+}	

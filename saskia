@@ -1,0 +1,14 @@
+{
+    "Pv": {
+        "vmin": -10,
+        "vmax": 142,
+        "vdefaut": 142,
+        "vact": 60
+    },
+    "Point_Sort": {
+        "vmin": 0,
+        "vmax": 53,
+        "vdefaut": 53,
+        "vact": 6
+    }
+}
