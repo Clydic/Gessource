@@ -1,9 +1,9 @@
 {
     "Pv": {
         "vmin": -10,
-        "vmax": 197,
-        "vdefaut": 119,
-        "vact": 106
+        "vmax": 143,
+        "vdefaut": 143,
+        "vact": 117
     },
     "PO": {
         "vmin": 0,
@@ -27,12 +27,18 @@
         "vmin": 0,
         "vmax": 36,
         "vdefaut": 36,
-        "vact": 22
+        "vact": 36
     },
     "pv gantelet": {
         "vmin": 0,
         "vmax": 100,
         "vdefaut": 0,
         "vact": 8
+    },
+    "Rubis": {
+        "vmin": 0,
+        "vmax": 9999,
+        "vdefaut": 21,
+        "vact": 21
     }
 }

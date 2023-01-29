@@ -69,11 +69,11 @@ class DataManage:
     def del_data(self, key):
         del self.data[key]
 
-class Root(object):
+class Root:
     """docstring for Root"""
 
     root = Tk()
-    root.geometry("+150+0")
+    root.geometry("+350+200")
     save = DataManage()
 
     def __init__(self):
@@ -113,7 +113,7 @@ class Root(object):
 
         self.mb.menu = Menu(self.mb, tearoff=0)
         self.mb["menu"] = self.mb.menu
-        self.mb.menu.add_command(label="New game", command=self._command_new)
+        self.mb.menu.add_command(label="New game test", command=self._command_new)
         self.mb.menu.add_command(label="Load game", command=self._command_open)
         self.mb.menu.add_command(label="Save game", command=self._command_save)
         self.mb.menu.add_command(label="Save game as", command=self._command_save_as)
