@@ -1,0 +1,14 @@
+{
+    "Troll": {
+        "vmin": -10,
+        "vmax": 150,
+        "vdefaut": 150,
+        "vact": 150
+    },
+    "Hypogriffe": {
+        "vmin": -10,
+        "vmax": 200,
+        "vdefaut": 200,
+        "vact": 200
+    }
+}
