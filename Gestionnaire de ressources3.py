@@ -69,11 +69,11 @@ class DataManage:
     def del_data(self, key):
         del self.data[key]
 
-class Root(object):
+class Root:
     """docstring for Root"""
 
     root = Tk()
-    root.geometry("+150+0")
+    root.geometry("+350+200")
     save = DataManage()
 
     def __init__(self):
@@ -113,7 +113,7 @@ class Root(object):
 
         self.mb.menu = Menu(self.mb, tearoff=0)
         self.mb["menu"] = self.mb.menu
-        self.mb.menu.add_command(label="New game", command=self._command_new)
+        self.mb.menu.add_command(label="New game test", command=self._command_new)
         self.mb.menu.add_command(label="Load game", command=self._command_open)
         self.mb.menu.add_command(label="Save game", command=self._command_save)
         self.mb.menu.add_command(label="Save game as", command=self._command_save_as)
@@ -124,6 +124,17 @@ class Root(object):
 
     # Fonctions lié au menu
     def _command_new(self):  # Fonction lié au bouton new
+root=Tk()
+filepath=askopenfilename(title="Ouvrir une image", filetypes=[("png files",".png"), ("jpeg files",".jpg"),("allfiles",".*")] ,initialdir=(os.path.expanduser('~/Desktop')))
+
+# image=Image.open("C:/Users/Sweety/Pictures/frond'écran/dinosaure/553025.jpg")
+image=Image.open(filepath)
+photo=ImageTk.PhotoImage(image ,size=(500,500))
+photo.place(x=0,y=0)
+canvas=Canvas(root,width=700, height=700,bg="yellow")
+item=canvas.create_image(300,300, image=photo)
+canvas.place(x=0,y=0)
+root.mainloop()
         self._new()
 
     
@@ -498,15 +509,15 @@ class DefVal(Root):
     
 
 
-class Data_Frame(object):
+class RessourceModel(object):
     """docstring for Data_Frame"""
 
-    def __init__(self, liste):
-        self._name=liste[0]
-        self._vmin=liste[1]
-        self._vmax=liste[2]
-        self._vdefault=liste[3]
-        self._vact=liste[4]
+    def __init__(self, ressource_name):
+        self._name = ressource_name
+        self._vmin = 0
+        self._vmax = 0
+        self._vdefault = 0
+        self._vact = 0
 
     @property
     def name(self):
@@ -546,8 +557,6 @@ class Data_Frame(object):
     def vdefaut(self,vdefaut):
         self._name = vdefaut
 
-
-          
 
 def main():
     gestionnaire_ressource = Root()

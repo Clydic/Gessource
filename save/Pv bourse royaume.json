@@ -1,15 +1,15 @@
 {
     "Pv": {
         "vmin": -10,
-        "vmax": 131,
-        "vdefaut": 131,
-        "vact": 101
+        "vmax": 143,
+        "vdefaut": 143,
+        "vact": 140
     },
     "PO": {
         "vmin": 0,
         "vmax": 10000000,
         "vdefaut": 10000,
-        "vact": 11000
+        "vact": 15516
     },
     "PA": {
         "vmin": 0,
@@ -20,7 +20,7 @@
     "PC": {
         "vmin": 0,
         "vmax": 100000,
-        "vdefaut": 1752,    
+        "vdefaut": 1752,
         "vact": 1752
     },
     "Imposition des mains": {
@@ -28,5 +28,23 @@
         "vmax": 36,
         "vdefaut": 36,
         "vact": 36
+    },
+    "pv gantelet": {
+        "vmin": 0,
+        "vmax": 100,
+        "vdefaut": 0,
+        "vact": 8
+    },
+    "Rubis": {
+        "vmin": 0,
+        "vmax": 9999,
+        "vdefaut": 21,
+        "vact": 21
+    },
+    "Rv mort vivant": {
+        "vmin": 0,
+        "vmax": 6,
+        "vdefaut": 6,
+        "vact": 5
     }
 }
