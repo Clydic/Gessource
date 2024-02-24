@@ -5,6 +5,8 @@ from tkinter import *
 from tkinter.ttk import *
 from tkinter.messagebox import *
 from tkinter.filedialog import askopenfilename, asksaveasfilename
+import model.RessourceModel
+
 # import pdb; pdb.set_trace()
 import pickle
 from collections import OrderedDict
@@ -124,17 +126,17 @@ class Root:
 
     # Fonctions lié au menu
     def _command_new(self):  # Fonction lié au bouton new
-root=Tk()
-filepath=askopenfilename(title="Ouvrir une image", filetypes=[("png files",".png"), ("jpeg files",".jpg"),("allfiles",".*")] ,initialdir=(os.path.expanduser('~/Desktop')))
+        root=Tk()
+        filepath=askopenfilename(title="Ouvrir une image", filetypes=[("png files",".png"), ("jpeg files",".jpg"),("allfiles",".*")] ,initialdir=(os.path.expanduser('~/Desktop')))
 
-# image=Image.open("C:/Users/Sweety/Pictures/frond'écran/dinosaure/553025.jpg")
-image=Image.open(filepath)
-photo=ImageTk.PhotoImage(image ,size=(500,500))
-photo.place(x=0,y=0)
-canvas=Canvas(root,width=700, height=700,bg="yellow")
-item=canvas.create_image(300,300, image=photo)
-canvas.place(x=0,y=0)
-root.mainloop()
+        # image=Image.open("C:/Users/Sweety/Pictures/frond'écran/dinosaure/553025.jpg")
+        image=Image.open(filepath)
+        photo=ImageTk.PhotoImage(image ,size=(500,500))
+        photo.place(x=0,y=0)
+        canvas=Canvas(root,width=700, height=700,bg="yellow")
+        item=canvas.create_image(300,300, image=photo)
+        canvas.place(x=0,y=0)
+        root.mainloop()
         self._new()
 
     
@@ -187,7 +189,7 @@ root.mainloop()
             pass
         else:
             self.save.add_data(liste.valeurs[0],liste.valeurs[1:])
-            frame = MyFrame(self.frame_ressource, liste.valeurs[0])
+            frame = RessourceView(self.frame_ressource, liste.valeurs[0])
 
             frame.creation_my_frame()
 
@@ -202,22 +204,26 @@ root.mainloop()
                 # import pdb; pdb.set_trace()
                 self.save.load_data(self.filename)             
                 for element in self.save.data:
-                    self.frame = MyFrame(self.frame_ressource, element)
+                    self.frame = RessourceView(self.frame_ressource, element)
                     self.frame.creation_my_frame()
         except TypeError:
             pass
 # Cration de l'objet frame dans lequel se trouve un label avec une valeur, une zone d'entrée et un bouton
 
 
-class MyFrame:
+class RessourceView:
     def __init__(self, root, key):  # Initialisation de My Frame
         self.root = root
         self.name = key
-        self.vmin = Root.save.data[key].get("vmin")
-        self.vmax = Root.save.data[key].get("vmax")
-        self.vdefaut = Root.save.data[key].get("vdefaut")
-        self.vact = Root.save.data[key].get("vact")
         self.myframe = Frame(self.root)
+        self.ressource_model = RessourceModel(key)
+        self.ressource_model.set_values({
+            "vmin": Root.save.data[key].get("vmin")
+            "vmax": Root.save.data[key].get("vmax")
+            "vdefaut": Root.save.data[key].get("vdefaut")
+            "vact": Root.save.data[key].get("vact")
+
+        })
         # import pdb; pdb.set_trace()
     def creation_my_frame(self):  # Creation de la fenêtre
 
@@ -508,54 +514,6 @@ class DefVal(Root):
         
     
 
-
-class RessourceModel(object):
-    """docstring for Data_Frame"""
-
-    def __init__(self, ressource_name):
-        self._name = ressource_name
-        self._vmin = 0
-        self._vmax = 0
-        self._vdefault = 0
-        self._vact = 0
-
-    @property
-    def name(self):
-        return self._name
-
-    @name.setter
-    def name(self,name):
-        self._name = name
-
-
-    @property
-    def vmin(self):
-        return self._vmin
-
-
-    @vmin.setter
-    def vmin(self,vmin):
-        self._vmin = vmin
-
-
-    @property
-    def vmax(self):
-        return self._vmax
-
-
-    @vmax.setter
-    def vmax(self,vmax):
-        self._vmax = vmax
-
-
-    @property
-    def vdefaut(self):
-        return self.vdefaut
-
-
-    @vdefaut.setter
-    def vdefaut(self,vdefaut):
-        self._name = vdefaut
 
 
 def main():
