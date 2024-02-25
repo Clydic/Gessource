@@ -13,7 +13,6 @@ from view.ressource_view import RessourceView
 import pickle
 import os
 from manage import manage_json_file as mjf
-import json
 
 
 class Root:
@@ -21,7 +20,7 @@ class Root:
 
     root = Tk()
     root.geometry("+350+200")
-    save = DataManage()
+    ressources = DataManage()
 
     def __init__(self):
         self.filename = ""
@@ -61,8 +60,8 @@ class Root:
         self.mb["menu"] = self.mb.menu
         self.mb.menu.add_command(label="New game test", command=self._command_new)
         self.mb.menu.add_command(label="Load game", command=self._command_open)
-        self.mb.menu.add_command(label="Save game", command=self._command_save)
-        self.mb.menu.add_command(label="Save game as", command=self._command_save_as)
+        self.mb.menu.add_command(label="ressources game", command=self._command_ressources)
+        self.mb.menu.add_command(label="ressources game as", command=self._command_ressources_as)
         self.mb.menu.add_command(label="Exit", command=self._confirmerquitter)
         # self.menubar.add_cascade(label="Files", menu=self.filemenu)
 
@@ -86,35 +85,35 @@ class Root:
     
     def _command_open(
         self
-    ):  # Fonction ouvrant le fichier choisis et l'assigne à save
+    ):  # Fonction ouvrant le fichier choisis et l'assigne à ressources
         self._open()
         
 
-    def _command_save(self):  # Fonction sauvegardant toutes les valeurs de save
-        self._save()
+    def _command_ressources(self):  # Fonction sauvegardant toutes les valeurs de ressources
+        self._ressources()
         
 
-    def _command_save_as(self):  # fonction lié au bouton save as
-        self._save_as()
+    def _command_ressources_as(self):  # fonction lié au bouton ressources as
+        self._ressources_as()
 
     def _command_add(self):
        self._add()
 
     def _new(self):
         self.filename = ""
-        self.save.data.__init__()
+        self.ressources.data.__init__()
         self.frame_ressource.destroy()
         self.frame_ressource = Frame(self.root, width=200, relief="groove")
         self.frame_ressource.grid(column=1, row=1)
 
     def _save(self):
         if self.filename == "":
-            self._save_as()
+            self._ressources_as()
         else:
 
             # for element in self.listeframe:
             #     self.save.append(element.liste_val)
-            self.save.save_data(self.filename)
+            self.ressources.save_data(self.filename)
             showinfo("File saved", "Your file is saved")
 
     def _save_as(self):
@@ -123,7 +122,7 @@ class Root:
             pass
         else:
             self.filename = filename
-            self._save()
+            self._ressources()
 
     def _add(self):
         liste = DefVal()
@@ -139,7 +138,7 @@ class Root:
             for i in range(4):
                 values_for_ressource_model[name_of_values[i]] = liste.valeurs
             RessourceModel.set_values({values_for_ressource_model})
-            self.save.add_data(RessourceModel)
+            self.ressources.add_data(RessourceModel)
             frame = RessourceView(self.frame_ressource, liste.valeurs[0])
 
             frame.creation_my_frame()
@@ -153,13 +152,12 @@ class Root:
             else:
                 self.filename = filename
                 # import pdb; pdb.set_trace()
-                self.save.load_data(self.filename)             
-                for element in self.save.data:
-                    self.frame = RessourceView(self.frame_ressource, element)
+                self.ressources.load_data(self.filename)             
+                for ressource in self.ressources.data:
+                    self.frame = RessourceView(self.frame_ressource, ressource)
                     self.frame.creation_my_frame()
         except TypeError:
             pass
-# Cration de l'objet frame dans lequel se trouve un label avec une valeur, une zone d'entrée et un bouton
 
 
 class DefVal(Root):
@@ -319,7 +317,21 @@ class DefVal(Root):
         self.win.destroy()
 
         
+class Menu_Barre:
+
+    def __init__(self,root, text_menu):
+        self.root = root
+        self.menu_button = Menubutton(root, text=text_menu)
+        self.menu_button.menu = Menu(self.menu_button,tearoff=0)
     
+    def create_barre_menu(self):
+        self.menu_button["menu"] = self.menu_button.menu
+        self.menu_button.menu.add_command(label="New game test", command=self._command_new)
+        self.menu_button.menu.add_command(label="Load game", command=self._command_open)
+        self.menu_button.menu.add_command(label="ressources game", command=self._command_ressources)
+        self.menu_button.menu.add_command(label="ressources game as", command=self._command_ressources_as)
+        self.menu_button.menu.add_command(label="Exit", command=self._confirmerquitter)
+
 
 
 
