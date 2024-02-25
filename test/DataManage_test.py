@@ -11,23 +11,15 @@ class TestDataManage(unittest.TestCase):
         self.ressource.set_values(
             {"vmin": -10, "vmax": 150, "vdefault": 150, "vact": 100})
 
-    def test_add_data(self):
+    def test_add_data_True(self):
+        data_manage = DataManage()
+        self.assertTrue(
+            data_manage.add_data(self.ressource), "The result should True"
+        )
+
+    def test_add_data_False(self):
         data_manage = DataManage()
         data_manage.add_data(self.ressource)
-        ressource_name = self.ressource.name
-        ressource_values = self.ressource.get_values()
-        self.assertEqual(data_manage.data, { 
-            ressource_name : ressource_values })
-
-    def test_add_data_error(self):
-        data_manage = DataManage()
-        data_manage.add_data(self.ressource)
-        self.ressource = RessourceModel("Mana")
-        self.ressource.set_values(
-            {"vmin": -10, "vmax": 150, "vdefault": 150, "vact": 100})
-        self.assertRaises(Exception, ('La donnée ne doit âs être ajouté'))
-    
-    
-
-    
-    
+        self.assertFalse(
+            data_manage.add_data(self.ressource), "The result should False"
+        )

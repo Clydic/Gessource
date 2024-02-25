@@ -41,20 +41,14 @@ class DataManage:
     def save_data(self, filename):
         mjf.save(filename, self.data)
 
-    def add_data(self, ressource : RessourceModel):
+    def add_data(self, ressource : RessourceModel)->bool:
         ressource_name = ressource.name
         ressource_values = ressource.get_values()
         if ressource_name not in self._data:
             self._data[ressource_name] = ressource_values
-        raise Exception ("The ressource exists already")
+            return True
+        return False
 
-    # def update_data(self,key,dictionnary):
-    #     liste_keys=list(self.data[key].keys())
-    #     if key in self.data:
-    #         for index in range(len(values)):
-    #             self.data[key][liste_keys[index]] = values[index]
-    #     else:
-    #          self.add_data(liste)
 
     def update_data(self, ressource_name, ressource_old_value, new_value):
         self._data[ressource_name][ressource_old_value] = new_value
