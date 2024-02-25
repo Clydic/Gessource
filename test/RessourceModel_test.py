@@ -11,9 +11,20 @@ class TestRessourceModel(unittest.TestCase):
         liste = ['2',3 , 4 ]
         self.assertRaises(AttributeError, self.pv.set_values, liste)
 
-    def test_set_values(self):
+    def test_set_values_True(self):
         dictionnary = {"vmin":-10, "vmax":150, "vdefault": 150, "vact": 100}
-        self.pv.set_values(dictionnary)
-        self.assertEqual(self.pv.get_values(), dictionnary)
-
+        msg =   "The result should be True"
+        self.assertTrue(self.pv.set_values(dictionnary), msg)
+    
+    def test_set_values_False(self):
+        dictionnary = {"vmin":-10, "vmax":150, "vdefault": 150, "vact": 100, "test": "foo"}
+        msg =  "The result should False"
+        self.assertFalse(self.pv.set_values(dictionnary),msg)
+    
+    def test_get_values(self):
+        dictionnary = {"vmin":-10, "vmax":150, "vdefault": 150, "vact": 100}
+        pv = self.pv
+        pv.set_values(dictionnary)
+        self.assertEqual(pv.get_values(),dictionnary)
+        
 
