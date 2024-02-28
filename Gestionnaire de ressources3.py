@@ -124,17 +124,17 @@ class Root:
 
     # Fonctions lié au menu
     def _command_new(self):  # Fonction lié au bouton new
-root=Tk()
-filepath=askopenfilename(title="Ouvrir une image", filetypes=[("png files",".png"), ("jpeg files",".jpg"),("allfiles",".*")] ,initialdir=(os.path.expanduser('~/Desktop')))
+        root=Tk()
+        filepath=askopenfilename(title="Ouvrir une image", filetypes=[("png files",".png"), ("jpeg files",".jpg"),("allfiles",".*")] ,initialdir=(os.path.expanduser('~/Desktop')))
 
-# image=Image.open("C:/Users/Sweety/Pictures/frond'écran/dinosaure/553025.jpg")
-image=Image.open(filepath)
-photo=ImageTk.PhotoImage(image ,size=(500,500))
-photo.place(x=0,y=0)
-canvas=Canvas(root,width=700, height=700,bg="yellow")
-item=canvas.create_image(300,300, image=photo)
-canvas.place(x=0,y=0)
-root.mainloop()
+        # image=Image.open("C:/Users/Sweety/Pictures/frond'écran/dinosaure/553025.jpg")
+        image=Image.open(filepath)
+        photo=ImageTk.PhotoImage(image ,size=(500,500))
+        photo.place(x=0,y=0)
+        canvas=Canvas(root,width=700, height=700,bg="yellow")
+        item=canvas.create_image(300,300, image=photo)
+        canvas.place(x=0,y=0)
+        root.mainloop()
         self._new()
 
     
@@ -152,7 +152,7 @@ root.mainloop()
         self._save_as()
 
     def _command_add(self):
-       self._add()
+        self._add()
 
     def _new(self):
         self.filename = ""
