@@ -9,11 +9,11 @@ from model.ressource_model import RessourceModel
 from manage.database_manage import DataManage
 from view.ressource_view import RessourceView
 
+
 # import pdb; pdb.set_trace()
 import pickle
 import os
 from manage import manage_json_file as mjf
-
 
 class Root:
     """docstring for Root"""
@@ -72,7 +72,7 @@ class Root:
         root=Tk()
         filepath=askopenfilename(title="Ouvrir une image", filetypes=[("png files",".png"), ("jpeg files",".jpg"),("allfiles",".*")] ,initialdir=(os.path.expanduser('~/Desktop')))
 
-        # image=Image.open("C:/Users/Sweety/Pictures/frond'écran/dinosaure/553025.jpg")
+        # image=Image.open("C:/Users/Sweety/Pictures/frond'écran/dinosaure/553024.jpg")
         image=Image.open(filepath)
         photo=ImageTk.PhotoImage(image ,size=(500,500))
         photo.place(x=0,y=0)
@@ -83,9 +83,7 @@ class Root:
         self._new()
 
     
-    def _command_open(
-        self
-    ):  # Fonction ouvrant le fichier choisis et l'assigne à ressources
+    def _command_open( self):  # Fonction ouvrant le fichier choisis et l'assigne à ressources
         self._open()
         
 
@@ -108,7 +106,7 @@ class Root:
 
     def _save(self):
         if self.filename == "":
-            self._ressources_as()
+            self._save_as()
         else:
 
             # for element in self.listeframe:
@@ -163,8 +161,8 @@ class Root:
 class DefVal(Root):
     """docstring for DefVal"""
 
-    def __init__(self):
-        self._valeurs = ["", 0, 0, 0, 0]
+    def __init__(self, list_of_values: list):
+        self._valeurs = list_of_values
         self.modifie = False
         self.liste_entry = []
         self.win = Toplevel(self.root)
@@ -235,13 +233,13 @@ class DefVal(Root):
     def _commande_ok(self):
 
         self._get_value()
-        if self._test_int(self.valeurs[1:3]):
-            if self._test_ordre(self.valeurs[1],self.valeurs[2],self.valeurs[3]):
-                if not self.modifie:
-                    self.valeurs[4] = self.valeurs[3]
+        if self._test_int(self.valeurs[1:3]) and self._test_ordre(
+        self.valeurs[1],self.valeurs[2],self.valeurs[3]):
+            if not self.modifie:
+                self.valeurs[4] = self.valeurs[3]
             
                 
-                self._quit()
+            self._quit()
 
         
 
@@ -316,28 +314,10 @@ class DefVal(Root):
         self.win.quit()
         self.win.destroy()
 
-        
-class Menu_Barre:
-
-    def __init__(self,root, text_menu):
-        self.root = root
-        self.menu_button = Menubutton(root, text=text_menu)
-        self.menu_button.menu = Menu(self.menu_button,tearoff=0)
-    
-    def create_barre_menu(self):
-        self.menu_button["menu"] = self.menu_button.menu
-        self.menu_button.menu.add_command(label="New game test", command=self._command_new)
-        self.menu_button.menu.add_command(label="Load game", command=self._command_open)
-        self.menu_button.menu.add_command(label="ressources game", command=self._command_ressources)
-        self.menu_button.menu.add_command(label="ressources game as", command=self._command_ressources_as)
-        self.menu_button.menu.add_command(label="Exit", command=self._confirmerquitter)
-
-
-
 
 def main():
-    gestionnaire_ressource = Root()
-    gestionnaire_ressource.creation_fenetre()
+     gestionnaire_ressource = Root()
+     gestionnaire_ressource.creation_fenetre()
     
     
     # test._json_to_list({'Pv': {'vmin': -10, 'vmax': 20, 'vdefaut': 20, 'vact': 0}, 'Mana': {'vmin': 0, 'vmax': 20, 'vdefaut': 20, 'vact': 0}})
