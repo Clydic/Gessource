@@ -1,15 +1,16 @@
 import sys
 sys.path.append('..')
 from model.ressource_model import RessourceModel
-class RessourceView(Root):
+from tkinter import *
+class RessourceView(Toplevel):
     """docstring for DefVal"""
 
-    def __init__(self):
-        self._valeurs = ["", 0, 0, 0, 0]
+    def __init__(self, root, ressource:RessourceModel):
+        Toplevel.__init__(root)
+        self.ressource = ressource
         self.modifie = False
         self.liste_entry = []
-        self.win = Toplevel(self.root)
-        self.win.geometry("+320+0")
+        self.geometry("+320+0")
         self.controller = None
 
     @property
@@ -20,23 +21,24 @@ class RessourceView(Root):
     def valeurs(self, v):
         self._valeurs = v
 
-def set_controller(self, controller):
-    self.controller = controller
 
     def creation_fenetre(self):  # We create the window of DefVal
-
+        
         self._creation_ligne()
         self._creation_button()
-        self.win.mainloop()
+        self.mainloop()
 
     def _creation_ligne(self):  # We create lines of the window of Def data
 
-        self.liste_nom = [
+        liste_nom = [
             "name:",
             "Valeur min:",
             "Valeur max:",
             "Valeur par defaut:",
         ]  # We make a list with name of label
+        ressource_value = self.ressource.get_values().copy()
+        ressource_value = ressource_value.values()  
+        ressource_value 
         for i in range(4):
             self.frame = Frame(self.win, width=35)
             self.frame.pack()
@@ -48,7 +50,7 @@ def set_controller(self, controller):
                     self._creation_label(self.frame,self.liste_nom[i])
                     self._creation_entry(self.frame,self._valeurs[i])
             else:
-                self._creation_label(self.frame,self.liste_nom[i])
+                self._creation_label(self.frame,liste_nom[i])
                 self._creation_entry(self.frame,self._valeurs[i])
                
         

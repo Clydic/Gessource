@@ -1,6 +1,7 @@
 import sys
 sys.path.append('..')
 from model.ressource_model import RessourceModel
+from tkinter import *
 class RessourceComponent:
     def __init__(self, root, key):  # Initialisation de My Frame
         self.root = root
