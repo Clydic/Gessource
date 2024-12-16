@@ -1,11 +1,13 @@
+from tkinter import *
+from model.ressource_model import RessourceModel
 import sys
 sys.path.append('..')
-from model.ressource_model import RessourceModel
-from tkinter import *
+
+
 class RessourceView(Toplevel):
     """docstring for DefVal"""
 
-    def __init__(self, root, ressource:RessourceModel):
+    def __init__(self, root, ressource: RessourceModel):
         Toplevel.__init__(root)
         self.ressource = ressource
         self.modifie = False
@@ -21,9 +23,8 @@ class RessourceView(Toplevel):
     def valeurs(self, v):
         self._valeurs = v
 
-
     def creation_fenetre(self):  # We create the window of DefVal
-        
+
         self._creation_ligne()
         self._creation_button()
         self.mainloop()
@@ -37,35 +38,31 @@ class RessourceView(Toplevel):
             "Valeur par defaut:",
         ]  # We make a list with name of label
         ressource_value = self.ressource.get_values().copy()
-        ressource_value = ressource_value.values()  
-        ressource_value 
+        ressource_value = ressource_value.values()
+        ressource_value
         for i in range(4):
             self.frame = Frame(self.win, width=35)
             self.frame.pack()
             if self.modifie:
                 if i == 0:
-                    self._creation_label(self.frame,self.valeurs[i])
-                   
-                else:    
-                    self._creation_label(self.frame,self.liste_nom[i])
-                    self._creation_entry(self.frame,self._valeurs[i])
+                    self._creation_label(self.frame, self.valeurs[i])
+
+                else:
+                    self._creation_label(self.frame, self.liste_nom[i])
+                    self._creation_entry(self.frame, self._valeurs[i])
             else:
-                self._creation_label(self.frame,liste_nom[i])
-                self._creation_entry(self.frame,self._valeurs[i])
-               
-        
-    def _creation_label(self,frame,name):
+                self._creation_label(self.frame, liste_nom[i])
+                self._creation_entry(self.frame, self._valeurs[i])
+
+    def _creation_label(self, frame, name):
         self.lbl = Label(self.frame, text=name, width=18)
         self.lbl.pack(side=LEFT)
 
-
-
-    def _creation_entry(self , frame, value):
+    def _creation_entry(self, frame, value):
         self.entry = Entry(frame, width=10)
         self.entry.insert(0, value)
         self.entry.pack(side=RIGHT)
         self.liste_entry.append(self.entry)
-
 
     def _creation_button(self):
         self.frame_button = Frame(self.win, width=15)
@@ -80,27 +77,19 @@ class RessourceView(Toplevel):
         self.button_cancel.pack(side=RIGHT, padx=5)
 
     def _commande_ok(self):
-
         self._get_value()
         if self._test_int(self.valeurs[1:3]):
-            if self._test_ordre(self.valeurs[1],self.valeurs[2],self.valeurs[3]):
+            if self._test_ordre(self.valeurs[1], self.valeurs[2], self.valeurs[3]):
                 if not self.modifie:
                     self.valeurs[4] = self.valeurs[3]
-            
-                
+
                 self._quit()
 
-        
-
     def _command_cancel(self):
-
         self.win.destroy()
-       
 
     def _test_encadrement(self, liste):
-
         test = self._test_int(self.valeurs[1:4])
-
         if test:
             for index in range(len(self.valeurs)):
                 if index != 0:
@@ -109,32 +98,31 @@ class RessourceView(Toplevel):
                 return False
             if liste[1] > liste[2]:
                 showinfo("info", "Le minimum doit être plus petit que le maximum")
-                
+
             if liste[3] < liste[1] or liste[3] > liste[2]:
                 showinfo(
                     "Info",
                     "La valeur par défaut doit être comprise entre le minium et le maximum",
                 )
-                
+
             else:
-                
+
                 return True
         else:
             return False
 
     def _test_ordre(self, vmin, vmax, test_value):
-        if vmin>vmax:
-             showinfo("info", "Le minimum doit être plus petit que le maximum")
-             return False
-        elif test_value<vmin or test_value>vmax:
+        if vmin > vmax:
+            showinfo("info", "Le minimum doit être plus petit que le maximum")
+            return False
+        elif test_value < vmin or test_value > vmax:
             showinfo(
-                    "Info",
-                    "La valeur par défaut doit être comprise entre le minium et le maximum",
-                )
+                "Info",
+                "La valeur par défaut doit être comprise entre le minium et le maximum",
+            )
             return False
         else:
             return True
-
 
     def _test_int(self, liste):
         try:
@@ -146,7 +134,6 @@ class RessourceView(Toplevel):
             return True
         except ValueError:
             showerror("Message d'erreur", "Veuillez entrer un entier")
-            
 
     def _get_value(self):
         if self.modifie:
@@ -157,9 +144,9 @@ class RessourceView(Toplevel):
             self.valeurs[0] = str(self.liste_entry[0].get())  # name
             self.valeurs[1] = int(self.liste_entry[1].get())  # min
             self.valeurs[2] = int(self.liste_entry[2].get())  # max
-            self.valeurs[3] = int(self.liste_entry[3].get())  # valeur par defaut
+            # valeur par defaut
+            self.valeurs[3] = int(self.liste_entry[3].get())
 
     def _quit(self):
         self.win.quit()
         self.win.destroy()
-

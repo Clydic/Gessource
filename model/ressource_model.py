@@ -4,7 +4,7 @@ class RessourceModel(object):
     constructor contain  argument string
     """
 
-    def __init__(self, ressource_name):
+    def __init__(self, ressource_name: str):
         self._name = ressource_name
         self._vmin = 0
         self._vmax = 0
@@ -44,28 +44,30 @@ class RessourceModel(object):
         self.vdefault = vdefault
 
     def get_values(self):
-        return {"vmin": self._vmin, "vmax": self._vmax, "vact": self._vact, "vdefault": self._vdefault}
+        return {"vmin": self._vmin,
+                "vmax": self._vmax,
+                "vact": self._vact,
+                "vdefault": self._vdefault
+                }
 
     def set_values(self, dictionnary_of_values: dict):
         name_of_values = ["vmin", "vmax", "vact", "vdefault"]
-        try:
+        if type(dictionnary_of_values) is not dict:
+            raise TypeError('The paramater should be a dictionnary')
+            return False
+
             is_correct_order = self._test_encadrement(dictionnary_of_values)
             for key in dictionnary_of_values.keys():
                 if key in name_of_values and is_correct_order:
-                    self._vact = dictionnary_of_values['vact']
-                    self._vmin = dictionnary_of_values['vmin']
-                    self._vmax = dictionnary_of_values['vmax']
-                    self._vdefault = dictionnary_of_values['vdefault']
+                    self._vact = int(dictionnary_of_values['vact'])
+                    self._vmin = int(dictionnary_of_values['vmin'])
+                    self._vmax = int(dictionnary_of_values['vmax'])
+                    self._vdefault = int(dictionnary_of_values['vdefault'])
                     return True
-        except AttributeError:
-            raise AttributeError("Le paramètre doit être un dictionnaire")
-        else:
-            return False
 
-    def _test_encadrement(self , dictionnary_of_values:dict)->bool: 
+    def _test_encadrement(self, dictionnary_of_values: dict) -> bool:
         vmin = dictionnary_of_values['vmin']
         vact = dictionnary_of_values['vact']
         vmax = dictionnary_of_values['vmax']
         vdefault = dictionnary_of_values['vdefault']
-        return vmin<=vact<=vmax and vmin<=vdefault<=vmax
-
+        return vmin <= vact <= vmax and vmin <= vdefault <= vmax
