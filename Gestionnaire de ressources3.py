@@ -278,7 +278,8 @@ class DefVal(Root):
             if liste[0] == "":
                 return False
             if liste[1] > liste[2]:
-                showinfo("info", "Le minimum doit être plus petit que le maximum")
+                showinfo("info",
+                         "Le minimum doit être plus petit que le maximum")
 
             if liste[3] < liste[1] or liste[3] > liste[2]:
                 showinfo(
