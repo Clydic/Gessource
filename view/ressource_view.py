@@ -1,88 +1,103 @@
 from tkinter import *
 from model.ressource_model import RessourceModel
 import sys
-sys.path.append('..')
+
+sys.path.append("..")
 
 
-class RessourceView(Toplevel):
+class RessourceView:
     """docstring for DefVal"""
 
-    def __init__(self, root, ressource: RessourceModel):
-        Toplevel.__init__(root)
+    def __init__(self, root, ressource: RessourceModel, modifie: bool = False):
+        self.win = Toplevel(root)
         self.ressource = ressource
-        self.modifie = False
+        self.modifie = modifie
         self.liste_entry = []
-        self.geometry("+320+0")
         self.controller = None
+        self._valeurs = ["", 0, 0, 0]
 
-    @property
-    def valeurs(self):
-        return self._valeurs
-
-    @valeurs.setter
-    def valeurs(self, v):
-        self._valeurs = v
+    # @property
+    # def valeurs(self):
+    #     return self._valeurs
+    #
+    # @valeurs.setter
+    # def valeurs(self, v):
+    #     self._valeurs = v
 
     def creation_fenetre(self):  # We create the window of DefVal
-
-        self._creation_ligne()
+        self._forms_creation()
         self._creation_button()
-        self.mainloop()
+        self.win.geometry("+320+0")
+        self.win.mainloop()
 
-    def _creation_ligne(self):  # We create lines of the window of Def data
-
-        liste_nom = [
+    def _forms_creation(self):  # We create lines of the window of Def data
+        # === Initialisation
+        # We make a list with name of label
+        labels = [
             "name:",
             "Valeur min:",
             "Valeur max:",
             "Valeur par defaut:",
-        ]  # We make a list with name of label
+        ]
         ressource_value = self.ressource.get_values().copy()
-        ressource_value = ressource_value.values()
-        ressource_value
+        del ressource_value["vact"]
+        values_list = list(ressource_value.values())
+        # === Treatment
         for i in range(4):
-            self.frame = Frame(self.win, width=35)
-            self.frame.pack()
-            if self.modifie:
-                if i == 0:
-                    self._creation_label(self.frame, self.valeurs[i])
+            # We're creating the frame where is the current line
+            frame = Frame(self.win, width=35)
+            frame.pack()
 
+            # Are we into a modification case?
+            # Yes
+            if self.modifie:
+                # If it's label name
+                if i == 0:
+                    # Creation of the Label based on the ressource name
+                    self._creation_label(frame, self.ressource.name)
+
+                # If other labels
                 else:
-                    self._creation_label(self.frame, self.liste_nom[i])
-                    self._creation_entry(self.frame, self._valeurs[i])
+                    # Cretation of label and entry fo aother values
+                    self._creation_label(frame, labels[i])
+                    self._creation_entry(frame, values_list[i])
+            # No
             else:
-                self._creation_label(self.frame, liste_nom[i])
-                self._creation_entry(self.frame, self._valeurs[i])
+                # Creation of label and entry of forms
+                self._creation_label(frame, labels[i])
+                self._creation_entry(frame, self._valeurs[i])
 
     def _creation_label(self, frame, name):
-        self.lbl = Label(self.frame, text=name, width=18)
-        self.lbl.pack(side=LEFT)
+        lbl = Label(frame, text=name, width=18)
+        lbl.pack(side=LEFT)
 
     def _creation_entry(self, frame, value):
-        self.entry = Entry(frame, width=10)
-        self.entry.insert(0, value)
-        self.entry.pack(side=RIGHT)
-        self.liste_entry.append(self.entry)
+        entry = Entry(frame, width=10)
+        entry.insert(0, value)
+        entry.pack(side=RIGHT)
+        self.liste_entry.append(entry)
 
     def _creation_button(self):
-        self.frame_button = Frame(self.win, width=15)
-        self.frame_button.pack(side=BOTTOM)
-        self.button_ok = Button(
-            self.frame_button, text="OK", command=self._commande_ok
+        frame_button = Frame(self.win, width=15)
+        frame_button.pack(side=BOTTOM)
+        button_ok = Button(frame_button, text="OK", command=self._commande_ok)
+        button_ok.pack(side=LEFT)
+        button_cancel = Button(
+            frame_button, text="Cancel", command=self._command_cancel
         )
-        self.button_ok.pack(side=LEFT)
-        self.button_cancel = Button(
-            self.frame_button, text="Cancel", command=self._command_cancel
-        )
-        self.button_cancel.pack(side=RIGHT, padx=5)
+        button_cancel.pack(side=RIGHT, padx=5)
 
     def _commande_ok(self):
         self._get_value()
-        if self._test_int(self.valeurs[1:3]):
-            if self._test_ordre(self.valeurs[1], self.valeurs[2], self.valeurs[3]):
+        if self._test_int(self._valeurs[1:3]):
+            if self._test_ordre(self._valeurs[1], self._valeurs[2], self._valeurs[3]):
                 if not self.modifie:
-                    self.valeurs[4] = self.valeurs[3]
-
+                    self.ressource.vact = self._valeurs[3]
+                self.ressource.name = self._valeurs[0]
+                self.ressource.vmin = self._valeurs[1]
+                self.ressource.vmax = self._valeurs[2]
+                self.ressource.vdefaut = self._valeurs[3]
+                self.ressource.add()
                 self._quit()
 
     def _command_cancel(self):
@@ -106,7 +121,6 @@ class RessourceView(Toplevel):
                 )
 
             else:
-
                 return True
         else:
             return False
@@ -126,9 +140,7 @@ class RessourceView(Toplevel):
 
     def _test_int(self, liste):
         try:
-
             for element in liste:
-
                 element = int(element)
 
             return True
@@ -137,15 +149,15 @@ class RessourceView(Toplevel):
 
     def _get_value(self):
         if self.modifie:
-            self.valeurs[1] = int(self.liste_entry[0].get())  # min
-            self.valeurs[2] = int(self.liste_entry[1].get())  # max
-            self.valeurs[3] = int(self.liste_entry[2].get())  # valeur par def
+            self._valeurs[1] = int(self.liste_entry[0].get())  # min
+            self._valeurs[2] = int(self.liste_entry[1].get())  # max
+            self._valeurs[3] = int(self.liste_entry[2].get())  # valeur par def
         else:
-            self.valeurs[0] = str(self.liste_entry[0].get())  # name
-            self.valeurs[1] = int(self.liste_entry[1].get())  # min
-            self.valeurs[2] = int(self.liste_entry[2].get())  # max
+            self._valeurs[0] = str(self.liste_entry[0].get())  # name
+            self._valeurs[1] = int(self.liste_entry[1].get())  # min
+            self._valeurs[2] = int(self.liste_entry[2].get())  # max
             # valeur par defaut
-            self.valeurs[3] = int(self.liste_entry[3].get())
+            self._valeurs[3] = int(self.liste_entry[3].get())
 
     def _quit(self):
         self.win.quit()

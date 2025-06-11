@@ -1,8 +1,8 @@
 from collections import OrderedDict
 from manage import manage_json_file as mjf
 import sys
-sys.path.append('..')
-from model.ressource_model import RessourceModel
+
+sys.path.append("..")
 
 
 class DataManage:
@@ -23,16 +23,21 @@ class DataManage:
         liste = []
 
         for key, values in json_file.items():
-            liste.append([key, values["vmin"], values["vmax"],
-                         values["vdefaut"], values["vact"]])
+            liste.append(
+                [key, values["vmin"], values["vmax"],
+                    values["vdefaut"], values["vact"]]
+            )
         return liste
 
     def _list_to_json(self, liste_de_liste):
-
         json_file = {}
         for element in liste_de_liste:
             json_file[element[0]] = {
-                "vmin": element[1], "vmax": element[2], "vdefaut": element[3], "vact": element[4]}
+                "vmin": element[1],
+                "vmax": element[2],
+                "vdefaut": element[3],
+                "vact": element[4],
+            }
         return json_file
 
     def load_data(self, filename):
@@ -41,17 +46,21 @@ class DataManage:
     def save_data(self, filename):
         mjf.save(filename, self.data)
 
-    def add_data(self, ressource : RessourceModel)->bool:
-        ressource_name = ressource.name
-        ressource_values = ressource.get_values()
+    def add_data(self, ressource_name: str, ressource_values: dict) -> bool:
         if ressource_name not in self._data:
             self._data[ressource_name] = ressource_values
             return True
         return False
 
+    def update_data(self, ressource_name, value_name, new_value):
+        self._data[ressource_name][value_name] = new_value
 
-    def update_data(self, ressource_name, ressource_old_value, new_value):
-        self._data[ressource_name][ressource_old_value] = new_value
+    def update_ressource(self, ressource_name, ressource_values: dict) -> bool:
+        if type(ressource_values) == dict:
+            self._data[ressource_name] = new_values
+            return True
+        else:
+            return False
 
     def del_data(self, key):
         del self.data[key]

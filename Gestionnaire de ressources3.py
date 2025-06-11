@@ -2,12 +2,15 @@
 # -*- coding: utf8 -*-
 # Python 3
 from tkinter import *
+
 # from tkinter.ttk import *
 from tkinter.messagebox import askyesno
 from tkinter.filedialog import askopenfilename, asksaveasfilename
+from view import ressource_component
 from model.ressource_model import RessourceModel
 from manage.database_manage import DataManage
 from view.ressource_view import RessourceView
+from view.ressource_component import RessourceComponent
 
 
 # import pdb; pdb.set_trace()
@@ -37,7 +40,6 @@ class Root:
         self.ConfirmerQuitter()
 
     def creation_fenetre(self):
-
         self._creation_frame()
         self._barre_menu()
         self.root.mainloop()
@@ -64,9 +66,11 @@ class Root:
             label="New game test", command=self._command_new)
         self.mb.menu.add_command(label="Load game", command=self._command_open)
         self.mb.menu.add_command(
-            label="ressources game", command=self._command_ressources)
+            label="ressources game", command=self._command_ressources
+        )
         self.mb.menu.add_command(
-            label="ressources game as", command=self._command_ressources_as)
+            label="ressources game as", command=self._command_ressources_as
+        )
         self.mb.menu.add_command(label="Exit", command=self._confirmerquitter)
         # self.menubar.add_cascade(label="Files", menu=self.filemenu)
 
@@ -75,8 +79,15 @@ class Root:
     # Fonctions lié au menu
     def _command_new(self):  # Fonction lié au bouton new
         root = Tk()
-        filepath = askopenfilename(title="Ouvrir une image", filetypes=[("png files", ".png"), (
-            "jpeg files", ".jpg"), ("allfiles", ".*")], initialdir=(os.path.expanduser('~/Desktop')))
+        filepath = askopenfilename(
+            title="Ouvrir une image",
+            filetypes=[
+                ("png files", ".png"),
+                ("jpeg files", ".jpg"),
+                ("allfiles", ".*"),
+            ],
+            initialdir=(os.path.expanduser("~/Desktop")),
+        )
 
         # image=Image.open("C:/Users/Sweety/Pictures/frond'écran/dinosaure/553024.jpg")
         image = Image.open(filepath)
@@ -88,7 +99,9 @@ class Root:
         root.mainloop()
         self._new()
 
-    def _command_open(self):  # Fonction ouvrant le fichier choisis et l'assigne à ressources
+    def _command_open(
+        self,
+    ):  # Fonction ouvrant le fichier choisis et l'assigne à ressources
         self._open()
 
     # Fonction sauvegardant toutes les valeurs de ressources
@@ -112,7 +125,6 @@ class Root:
         if self.filename == "":
             self._save_as()
         else:
-
             # for element in self.listeframe:
             #     self.save.append(element.liste_val)
             self.ressources.save_data(self.filename)
@@ -127,25 +139,18 @@ class Root:
             self._ressources()
 
     def _add(self):
-        list_of_values = [0, 0, 0, 0]
-        liste = DefVal(list_of_values=list_of_values)
-        liste.creation_fenetre()
+        ressource_model = RessourceModel(database=self.ressources)
+        ressource_view = RessourceView(
+            root=self.root, ressource=ressource_model)
 
-        if liste.valeurs[0] == "":
-            pass
-        else:
-            new_ressource = RessourceModel(ressource_name=liste.valeurs[0])
-            liste.valeurs = liste.valeurs[1:]
-            name_of_values = ["vmin", "vmax", "vact", "vdefault"]
-            values_for_ressource_model = {}
-            for i in range(4):
-                values_for_ressource_model[name_of_values[i]] = liste.valeurs
-            RessourceModel.set_values({values_for_ressource_model})
-            self.ressources.add_data(RessourceModel)
-            frame = RessourceView(root=self.frame_ressource,
-                                  ressource=liste.valeurs[0])
+        ressource_view.creation_fenetre()
 
-            frame.creation_my_frame()
+        ressource_component = RessourceComponent(
+            root=self.frame_ressource,
+            ressource=ressource_model,
+            database=self.ressources,
+        )
+        ressource_component.creation_my_frame()
 
     def _open(self):
         self._new()
@@ -159,7 +164,8 @@ class Root:
                 self.ressources.load_data(self.filename)
                 for ressource in self.ressources.data:
                     self.frame = RessourceView(
-                        root=self.frame_ressource, ressource=ressource)
+                        root=self.frame_ressource, ressource=ressource
+                    )
                     self.frame.creation_my_frame()
         except TypeError:
             pass
@@ -169,11 +175,13 @@ class DefVal(Root):
     """
     Class that set values of a ressource
     """
+
     _name: str
     _modifie = False
 
-    def __init__(self, list_of_values: list):
+    def __init__(self, ressource: RessourceModel):
         self._valeurs = list_of_values
+        self.ressource = ressource
         self.liste_entry = []
         self.win = Toplevel(self.root)
         self.win.geometry("+320+0")
@@ -196,7 +204,7 @@ class DefVal(Root):
 
     def creation_fenetre(self):
         """
-        create the window 
+        create the window
         """
         self._creation_ligne()
         self._creation_button()
@@ -212,7 +220,7 @@ class DefVal(Root):
         for i in range(4):
             self.frame = Frame(self.win, width=35)
             self.frame.pack()
-            if self.modifie:
+            if self._modifie:
                 if i == 0:
                     self._creation_label(frame=self.frame, name=self.name)
 
@@ -239,8 +247,7 @@ class DefVal(Root):
         self.frame_button = Frame(self.win, width=15)
         self.frame_button.pack(side=BOTTOM)
         self.button_ok = Button(
-            self.frame_button, text="OK", command=self._commande_ok
-        )
+            self.frame_button, text="OK", command=self._commande_ok)
         self.button_ok.pack(side=LEFT)
         self.button_cancel = Button(
             self.frame_button, text="Cancel", command=self._command_cancel
@@ -248,22 +255,49 @@ class DefVal(Root):
         self.button_cancel.pack(side=RIGHT, padx=5)
 
     def _commande_ok(self):
-
         self._get_value()
         if self._test_int(self.valeurs[1:3]) and self._test_ordre(
-                self.valeurs[1], self.valeurs[2], self.valeurs[3]):
-            if not self.modifie:
+            self.valeurs[1], self.valeurs[2], self.valeurs[3]
+        ):
+            if not self._modifie:
                 self.valeurs[4] = self.valeurs[3]
 
+            new_ressource = RessourceModel(ressource_name=liste.valeurs[0])
+            liste.valeurs = liste.valeurs[1:]
+            name_of_values = ["vmin", "vmax", "vact", "vdefault"]
+            values_for_ressource_model = {}
+            for i in range(4):
+                values_for_ressource_model[name_of_values[i]] = liste.valeurs
+            RessourceModel.set_values({values_for_ressource_model})
+
+            if self._modifie:
+                is_data_added = self.ressources.update_data(
+                    ressource_name=new_ressource.name,
+                    ressource_old_value=new_ressource.vmin,
+                    new_value=liste.valeurs[1],
+                )
+
+                is_data_added = self.ressources.update_data(
+                    ressource_name=new_ressource.name,
+                    ressource_old_value=new_ressource.vmax,
+                    new_value=liste.valeurs[2],
+                )
+
+                is_data_added = self.ressources.update_data(
+                    ressource_name=new_ressource.name,
+                    ressource_old_value=new_ressource.vdefault,
+                    new_value=liste.valeurs[3],
+                )
+
+            else:
+                is_data_added = self.ressources.add_data(RessourceModel)
             self._quit()
 
     def _command_cancel(self):
-
         self.win.destroy()
 
     # TODO create a function for test encadrement and use it into the loop
     def _test_encadrement(self, liste) -> bool:
-
         # We're test if values of ressource are an int
         test = self._test_int(self.valeurs[1:4])
 
@@ -278,8 +312,7 @@ class DefVal(Root):
             if liste[0] == "":
                 return False
             if liste[1] > liste[2]:
-                showinfo("info",
-                         "Le minimum doit être plus petit que le maximum")
+                showinfo("info", "Le minimum doit être plus petit que le maximum")
 
             if liste[3] < liste[1] or liste[3] > liste[2]:
                 showinfo(
@@ -288,7 +321,6 @@ class DefVal(Root):
                 )
 
             else:
-
                 return True
         else:
             return False
@@ -308,9 +340,7 @@ class DefVal(Root):
 
     def _test_int(self, liste):
         try:
-
             for element in liste:
-
                 element = int(element)
 
             return True
@@ -355,8 +385,7 @@ def test_ordre(vmin, vmax, test_value):
     elif test_value < vmin or test_value > vmax:
         print(
             "Info",
-            "La valeur par défaut doit "
-            "être comprise entre le minium et le maximum",
+            "La valeur par défaut doit être comprise entre le minium et le maximum",
         )
         return False
     else:
