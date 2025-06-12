@@ -28,7 +28,8 @@ class RessourceComponent:
     ):  # Creation du label du name est du label de la valeur affiché
         self.text = StringVar()
         self.text.set(str(self.ressource.vact))
-        lbl1 = Label(self.myframe, text=self.name + ":", justify="left")
+        lbl1 = Label(self.myframe, text=self.ressource.name +
+                     ":", justify="left")
         lbl1.grid(row=0, column=1)
 
         lbl2 = Label(self.myframe, textvariable=self.text, justify="right")
