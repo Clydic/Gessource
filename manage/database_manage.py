@@ -63,4 +63,7 @@ class DataManage:
             return False
 
     def del_data(self, key):
-        del self.data[key]
+        if key in self.data:
+            del self.data[key]
+            return True
+        return False

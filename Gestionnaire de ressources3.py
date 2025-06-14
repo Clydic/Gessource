@@ -148,7 +148,6 @@ class Root:
         ressource_component = RessourceComponent(
             root=self.frame_ressource,
             ressource=ressource_model,
-            database=self.ressources,
         )
         ressource_component.creation_my_frame()
 

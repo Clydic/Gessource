@@ -2,7 +2,6 @@ from tkinter import *
 
 # from manage import database_manage
 from model.ressource_model import RessourceModel
-from manage.database_manage import DataManage
 
 # import pdb; pdb.set_trace()
 import sys
@@ -12,11 +11,10 @@ sys.path.append("..")
 
 class RessourceComponent:
     # Initialisation de My Frame
-    def __init__(self, root, ressource: RessourceModel, database: DataManage):
+    def __init__(self, root, ressource: RessourceModel):
         self.root = root
         self.myframe = Frame(self.root)
         self.ressource = ressource
-        self.database = database
 
     def creation_my_frame(self):  # Creation de la fenêtre
         self._creation_lbl_entry()
@@ -60,19 +58,19 @@ class RessourceComponent:
         )
         bps_delete.grid(row=0, column=6)
 
-    # Fonction du bouton ok qui modifie les valeurs et nettoie l'Entry
+    # Change the value when enter key is pressed and clear the input field
     def _command_ok(self, event):
         self._ok()
 
     def _button_reset(self):  # commande du bouton reset
         # We reinit the actual value
-        self.ressource_model.vact = self.ressource_model.vdefaut
+        self.ressource.vact = self.ressource_model.vdefaut
 
         # We update the texte with the new value
         self.text.set(str(self.ressource_model.vact))
 
         # Update the database with the new value
-        database_manage.update_data(self.name, "vact", self.ressource.vact)
+        self.ressource.update()
         self.entri.delete(0, END)
         # import pdb; pdb.set_trace()
 
@@ -86,7 +84,7 @@ class RessourceComponent:
 
     def _delete(self):
         if askyesno("Delete", "Do you want to delete ?"):
-            Root.save.del_data(self.name)
+            self.database.del_data(self.name)
             self.myframe.destroy()
 
     def _test_encadrement(self, vact, vmin, vmax):
@@ -113,12 +111,17 @@ class RessourceComponent:
 
     def _ok(self):
         get_valeur = int(self.entri.get())
-        vact = self.vact
+        vact = self.ressource.vact
+        # Check if the value is an Integer
         if self._test_int(get_valeur):
             vact += get_valeur
-            self.vact = self._test_encadrement(vact, self.vmin, self.vmax)
-            self.text.set(str(self.vact))
-            Root.save.update_data(self.name, "vact", self.vact)
+            self.ressource.vact = self._test_encadrement(
+                vact, self.ressource.vmin, self.ressource.vmax
+            )
+            print(f"ressource_component vac : {vact}")
+            self.ressource.vact = vact
+            self.text.set(str(self.ressource.vact))
+            self.ressource.update()
         self.entri.delete(0, END)
 
     def _modifie(self):

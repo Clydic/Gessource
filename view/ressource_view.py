@@ -91,12 +91,12 @@ class RessourceView:
         self._get_value()
         if self._test_int(self._valeurs[1:3]):
             if self._test_ordre(self._valeurs[1], self._valeurs[2], self._valeurs[3]):
-                if not self.modifie:
-                    self.ressource.vact = self._valeurs[3]
                 self.ressource.name = self._valeurs[0]
                 self.ressource.vmin = self._valeurs[1]
                 self.ressource.vmax = self._valeurs[2]
-                self.ressource.vdefaut = self._valeurs[3]
+                self.ressource.vdefault = self._valeurs[3]
+                if not self.modifie:
+                    self.ressource.vact = self._valeurs[3]
                 self.ressource.add()
                 self._quit()
 
