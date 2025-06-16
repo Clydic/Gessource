@@ -1,7 +1,10 @@
 from tkinter import *
 
 # from manage import database_manage
+from view.ressource_view import RessourceView
 from model.ressource_model import RessourceModel
+from view.ressource_view import RessourceView
+from tkinter.messagebox import askyesno
 
 # import pdb; pdb.set_trace()
 import sys
@@ -10,6 +13,13 @@ sys.path.append("..")
 
 
 class RessourceComponent:
+    """
+    Component that manage a Ressource based on a RessourceModel
+
+    root(Widget): The widget where this component is attach
+    ressource(RessourceModel) : The ressource model that manage the ressource
+    """
+
     # Initialisation de My Frame
     def __init__(self, root, ressource: RessourceModel):
         self.root = root
@@ -26,8 +36,7 @@ class RessourceComponent:
     ):  # Creation du label du name est du label de la valeur affiché
         self.text = StringVar()
         self.text.set(str(self.ressource.vact))
-        lbl1 = Label(self.myframe, text=self.ressource.name +
-                     ":", justify="left")
+        lbl1 = Label(self.myframe, text=self.ressource.name + ":", justify="left")
         lbl1.grid(row=0, column=1)
 
         lbl2 = Label(self.myframe, textvariable=self.text, justify="right")
@@ -64,10 +73,10 @@ class RessourceComponent:
 
     def _button_reset(self):  # commande du bouton reset
         # We reinit the actual value
-        self.ressource.vact = self.ressource_model.vdefaut
+        self.ressource.vact = self.ressource.vdefault
 
         # We update the texte with the new value
-        self.text.set(str(self.ressource_model.vact))
+        self.text.set(str(self.ressource.vact))
 
         # Update the database with the new value
         self.ressource.update()
@@ -84,8 +93,14 @@ class RessourceComponent:
 
     def _delete(self):
         if askyesno("Delete", "Do you want to delete ?"):
-            self.database.del_data(self.name)
-            self.myframe.destroy()
+            is_deleted = self.ressource.delete()
+            if is_deleted:
+                self.myframe.destroy()
+            else:
+                showerror(
+                    "Error message",
+                    "Une erreur s'est produite lors de la suppression",
+                )
 
     def _test_encadrement(self, vact, vmin, vmax):
         if vact < vmin:
@@ -93,10 +108,6 @@ class RessourceComponent:
         elif vact > vmax:
             vact = vmax
         return vact
-
-    def _update(self, index, data):
-        self.text.set(str(data))
-        Root.save.data[self.i][index] = data
 
     def _test_int(self, vtest):
         try:
@@ -118,31 +129,21 @@ class RessourceComponent:
             self.ressource.vact = self._test_encadrement(
                 vact, self.ressource.vmin, self.ressource.vmax
             )
-            print(f"ressource_component vac : {vact}")
             self.ressource.vact = vact
-            self.text.set(str(self.ressource.vact))
             self.ressource.update()
+
+            self.text.set(str(self.ressource.vact))
         self.entri.delete(0, END)
 
     def _modifie(self):
-        self.fen = DefVal()
-        self.fen.modifie = True
-        vact = self.vact
-        self.fen.valeurs = [self.name] + \
-            list(Root.save.data[self.name].values())
-        liste_nom = [
-            "vmin",
-            "vmax",
-            "vdefaut",
-        ]
-        self.fen.creation_fenetre()
-
-        for j in range(1, 4):
-            Root.save.update_data(
-                self.name, liste_nom[j - 1], self.fen.valeurs[j])
-
-        self.vmin = Root.save.data[self.name]["vmin"]
-        self.vmax = Root.save.data[self.name]["vmax"]
-        self.vdefaut = Root.save.data[self.name]["vdefaut"]
-        self.vact = self._test_encadrement(vact, self.vmin, self.vmax)
-        self.text.set(str(self.vact))
+        # self.fen = DefVal()
+        # self.fen.modifie = True
+        ressource_form = RessourceView(
+            root=self.root, modifie=True, ressource=self.ressource
+        )
+        ressource_form.creation_fenetre()
+        vact
+        self.ressource.vact = self._test_encadrement(
+            vact, self.ressource.vmin, self.ressource.vmax
+        )
+        self.text.set(str(self.ressource.vact))

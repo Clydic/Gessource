@@ -42,6 +42,7 @@ class RessourceView:
         ressource_value = self.ressource.get_values().copy()
         del ressource_value["vact"]
         values_list = list(ressource_value.values())
+        breakpoint()
         # === Treatment
         for i in range(4):
             # We're creating the frame where is the current line
@@ -60,7 +61,7 @@ class RessourceView:
                 else:
                     # Cretation of label and entry fo aother values
                     self._creation_label(frame, labels[i])
-                    self._creation_entry(frame, values_list[i])
+                    self._creation_entry(frame, values_list[i - 1])
             # No
             else:
                 # Creation of label and entry of forms
@@ -97,7 +98,9 @@ class RessourceView:
                 self.ressource.vdefault = self._valeurs[3]
                 if not self.modifie:
                     self.ressource.vact = self._valeurs[3]
-                self.ressource.add()
+                    self.ressource.add()
+                else:
+                    self.ressource.update()
                 self._quit()
 
     def _command_cancel(self):
