@@ -1,15 +1,15 @@
 {
     "Pv": {
         "vmin": -10,
-        "vmax": 143,
-        "vdefaut": 143,
-        "vact": 140
+        "vmax": 167,
+        "vdefaut": 156,
+        "vact": 150
     },
     "PO": {
         "vmin": 0,
         "vmax": 10000000,
         "vdefaut": 10000,
-        "vact": 15516
+        "vact": 29766
     },
     "PA": {
         "vmin": 0,
@@ -25,9 +25,9 @@
     },
     "Imposition des mains": {
         "vmin": 0,
-        "vmax": 36,
-        "vdefaut": 36,
-        "vact": 36
+        "vmax": 42,
+        "vdefaut": 42,
+        "vact": 30
     },
     "pv gantelet": {
         "vmin": 0,
@@ -45,6 +45,12 @@
         "vmin": 0,
         "vmax": 6,
         "vdefaut": 6,
-        "vact": 5
+        "vact": 6
+    },
+    "Baguette de soin l\u00e9ger": {
+        "vmin": 0,
+        "vmax": 50,
+        "vdefaut": 50,
+        "vact": 21
     }
 }
