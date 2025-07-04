@@ -2,12 +2,16 @@
 #coding: utf-8
 import json
 from pprint import pprint
+import os
 
 def load(filename):
-	with open(filename, "r") as file:
-		data=json.load(file)
+	if os.path.exists(filename):
+		with open(filename, "r") as file:
+			data=json.load(file)
 		
-	return data
+		return data
+
+	raise FileNotFoundError('The file does not exists')	
 
 def save(filename,dicc):
 	with open(filename, "w") as file:

@@ -2,7 +2,7 @@
     "PS": {
         "vmin": 0,
         "vmax": 53,
-        "vdefaut": 53,
-        "vact": 48
+        "vact": 53,
+        "vdefaut": 53
     }
 }
