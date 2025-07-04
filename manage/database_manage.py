@@ -5,8 +5,23 @@ import sys
 sys.path.append("..")
 
 
+class File:
+    def __init__(self):
+        self._name = ""
+
+    def __get__(self, instance, owner):
+        return self._name
+
+    def __set__(self, instance, value):
+        self._name = value
+
+
 class DataManage:
-    """docstring for Save"""
+    """
+    Link the file where data are saved and the model
+    """
+
+    filename = File()
 
     def __init__(self):
         self._data = OrderedDict()
@@ -14,10 +29,6 @@ class DataManage:
     @property
     def data(self):
         return self._data
-
-    @data.setter
-    def data(self, key, value, v):
-        self._data = v
 
     def _json_to_list(self, json_file):
         liste = []
@@ -40,11 +51,11 @@ class DataManage:
             }
         return json_file
 
-    def load_data(self, filename):
-        self._data = OrderedDict(mjf.load(filename))
+    def load_data(self):
+        self._data = OrderedDict(mjf.load(self.filename))
 
-    def save_data(self, filename):
-        mjf.save(filename, self.data)
+    def save_data(self):
+        mjf.save(self.filename, self._data)
 
     def add_data(self, ressource_name: str, ressource_values: dict) -> bool:
         if ressource_name not in self._data:
@@ -57,7 +68,7 @@ class DataManage:
 
     def update_ressource(self, ressource_name, ressource_values: dict) -> bool:
         if type(ressource_values) == dict:
-            self._data[ressource_name] = new_values
+            self._data[ressource_name] = ressource_values
             return True
         else:
             return False
@@ -67,3 +78,7 @@ class DataManage:
             del self.data[key]
             return True
         return False
+
+    def new(self):
+        self.filename = File()
+        self._data = OrderedDict()

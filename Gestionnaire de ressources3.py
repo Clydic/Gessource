@@ -4,7 +4,7 @@
 from tkinter import *
 
 # from tkinter.ttk import *
-from tkinter.messagebox import askyesno
+from tkinter.messagebox import askyesno, showinfo, showerror
 from tkinter.filedialog import askopenfilename, asksaveasfilename
 from view import ressource_component
 from model.ressource_model import RessourceModel
@@ -26,7 +26,6 @@ class Root:
     ressources = DataManage()
 
     def __init__(self):
-        self.filename = ""
         self.listeframe = []
 
         self.root.protocol("WM_DELETE_WINDOW", self._confirmerquitter)
@@ -51,8 +50,7 @@ class Root:
         self.frame_btt = Frame(self.root)
         self.frame_btt.grid(column=1, row=2)
 
-        self.bttadd = Button(self.frame_btt, text="Add",
-                             command=self._command_add)
+        self.bttadd = Button(self.frame_btt, text="Add", command=self._command_add)
         self.bttadd.pack(side=LEFT)
 
     # On crée la barre de menu
@@ -62,15 +60,10 @@ class Root:
 
         self.mb.menu = Menu(self.mb, tearoff=0)
         self.mb["menu"] = self.mb.menu
-        self.mb.menu.add_command(
-            label="New game test", command=self._command_new)
+        self.mb.menu.add_command(label="New game ", command=self._command_new)
         self.mb.menu.add_command(label="Load game", command=self._command_open)
-        self.mb.menu.add_command(
-            label="ressources game", command=self._command_ressources
-        )
-        self.mb.menu.add_command(
-            label="ressources game as", command=self._command_ressources_as
-        )
+        self.mb.menu.add_command(label="save", command=self._command_save)
+        self.mb.menu.add_command(label="save game as", command=self._command_save_as)
         self.mb.menu.add_command(label="Exit", command=self._confirmerquitter)
         # self.menubar.add_cascade(label="Files", menu=self.filemenu)
 
@@ -78,25 +71,6 @@ class Root:
 
     # Fonctions lié au menu
     def _command_new(self):  # Fonction lié au bouton new
-        root = Tk()
-        filepath = askopenfilename(
-            title="Ouvrir une image",
-            filetypes=[
-                ("png files", ".png"),
-                ("jpeg files", ".jpg"),
-                ("allfiles", ".*"),
-            ],
-            initialdir=(os.path.expanduser("~/Desktop")),
-        )
-
-        # image=Image.open("C:/Users/Sweety/Pictures/frond'écran/dinosaure/553024.jpg")
-        image = Image.open(filepath)
-        photo = ImageTk.PhotoImage(image, size=(500, 500))
-        photo.place(x=0, y=0)
-        canvas = Canvas(root, width=700, height=700, bg="yellow")
-        item = canvas.create_image(300, 300, image=photo)
-        canvas.place(x=0, y=0)
-        root.mainloop()
         self._new()
 
     def _command_open(
@@ -105,29 +79,28 @@ class Root:
         self._open()
 
     # Fonction sauvegardant toutes les valeurs de ressources
-    def _command_ressources(self):
-        self._ressources()
+    def _command_save(self):
+        self._save()
 
-    def _command_ressources_as(self):  # fonction lié au bouton ressources as
-        self._ressources_as()
+    def _command_save_as(self):  # fonction lié au bouton ressources as
+        self._save_as()
 
     def _command_add(self):
         self._add()
 
     def _new(self):
-        self.filename = ""
-        self.ressources.data.__init__()
+        self.ressources.new()
         self.frame_ressource.destroy()
         self.frame_ressource = Frame(self.root, width=200, relief="groove")
         self.frame_ressource.grid(column=1, row=1)
 
     def _save(self):
-        if self.filename == "":
+        if self.ressources.filename == "":
             self._save_as()
         else:
             # for element in self.listeframe:
             #     self.save.append(element.liste_val)
-            self.ressources.save_data(self.filename)
+            self.ressources.save_data()
             showinfo("File saved", "Your file is saved")
 
     def _save_as(self):
@@ -135,13 +108,12 @@ class Root:
         if filename == "":
             pass
         else:
-            self.filename = filename
-            self._ressources()
+            self.ressources.filename = filename
+            self.ressources.save_data()
 
     def _add(self):
         ressource_model = RessourceModel(database=self.ressources)
-        ressource_view = RessourceView(
-            root=self.root, ressource=ressource_model)
+        ressource_view = RessourceView(root=self.root, ressource=ressource_model)
 
         ressource_view.creation_fenetre()
 
@@ -155,17 +127,18 @@ class Root:
         self._new()
         filename = askopenfilename()
         try:
-            if filename == "":
-                pass
-            else:
-                self.filename = filename
-                # import pdb; pdb.set_trace()
-                self.ressources.load_data(self.filename)
+            if filename != "":
+                self.ressources.filename = filename
+                self.ressources.load_data()
                 for ressource in self.ressources.data:
-                    self.frame = RessourceView(
-                        root=self.frame_ressource, ressource=ressource
+                    ressource_model = RessourceModel(
+                        database=self.ressources, ressource_name=ressource
                     )
-                    self.frame.creation_my_frame()
+                    ressource_model.set_values(self.ressources.data[ressource])
+                    frame = RessourceComponent(
+                        root=self.frame_ressource, ressource=ressource_model
+                    )
+                    frame.creation_my_frame()
         except TypeError:
             pass
 

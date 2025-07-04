@@ -65,11 +65,11 @@ class RessourceModel:
             "vmin": self._vmin,
             "vmax": self._vmax,
             "vact": self._vact,
-            "vdefault": self._vdefault,
+            "vdefaut": self._vdefault,
         }
 
     def set_values(self, dictionnary_of_values: dict):
-        name_of_values = ["vmin", "vmax", "vact", "vdefault"]
+        name_of_values = ["vmin", "vmax", "vact", "vdefaut"]
         name_of_values.sort()
 
         if type(dictionnary_of_values) is not dict:
@@ -89,7 +89,7 @@ class RessourceModel:
             self._vact = int(dictionnary_of_values["vact"])
             self._vmin = int(dictionnary_of_values["vmin"])
             self._vmax = int(dictionnary_of_values["vmax"])
-            self._vdefault = int(dictionnary_of_values["vdefault"])
+            self._vdefault = int(dictionnary_of_values["vdefaut"])
             return True
         else:
             return False
@@ -101,7 +101,7 @@ class RessourceModel:
 
     def update(self) -> bool:
         return self.database.update_ressource(
-            ressource_name=self._name, ressource_values=self.get_values
+            ressource_name=self._name, ressource_values=self.get_values()
         )
 
     def delete(self):
@@ -111,5 +111,5 @@ class RessourceModel:
         vmin = dictionnary_of_values["vmin"]
         vact = dictionnary_of_values["vact"]
         vmax = dictionnary_of_values["vmax"]
-        vdefault = dictionnary_of_values["vdefault"]
+        vdefault = dictionnary_of_values["vdefaut"]
         return vmin <= vact <= vmax and vmin <= vdefault <= vmax
